@@ -15,15 +15,17 @@ export default function ChatPanel() {
         <ChatPanelContainer>
             <ChatInfo>
                 <span>{data.user?.displayName}</span>
-                <ChatIcons>
-                    <DuoIcon />
-                    <CallIcon />
-                    <MoreVertIcon />
-                </ChatIcons>
+                {data.user?.displayName && 
+                    <ChatIcons>
+                        <DuoIcon />
+                        <CallIcon />
+                        <MoreVertIcon />
+                    </ChatIcons>
+                }
             </ChatInfo>
 
             <Messages />
-
+            
             <ChatInput />
         </ChatPanelContainer>
     );
