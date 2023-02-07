@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
+import BlankPanel from '../components/BlankPanel';
 import ChatPanel from '../components/ChatPanel';
 import Sidebar from '../components/Sidebar';
+import { ChatContext } from '../context/ChatContext';
 
 export default function HomePage() {
+    const { data } = useContext(ChatContext);
+
     return (
         <AppBody>
             <HomePageContainer>
                 <Sidebar />
 
-                <ChatPanel />
+                {data ? <BlankPanel /> : <ChatPanel />}
             </HomePageContainer>
         </AppBody>
     );

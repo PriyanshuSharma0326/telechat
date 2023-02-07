@@ -8,7 +8,6 @@ import CallIcon from '@mui/icons-material/Call';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { ChatContext } from '../context/ChatContext';
 
-
 export default function ChatPanel() {
     const { data } = useContext(ChatContext);
 
