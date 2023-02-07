@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
 
 import { collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore';
 import { db } from '../lib/config/firebase';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../features/userSlice';
+import { AuthContext } from '../context/AuthContext';
 
 export default function Search() {
     const [username, setUsername] = useState('');
     const [user, setUser] = useState(null);
     const [error, setError] = useState(false);
 
-    const currentUser = useSelector(selectUser);
+    const { currentUser } = useContext(AuthContext);
 
     const handleSearch = async () => {
         const q = query(
@@ -74,9 +73,10 @@ export default function Search() {
         <SearchContainer>
             <SearchForm>
                 <input 
-                    value={username}
+                    type='text' 
+                    value={username} 
                     placeholder='Find a user' 
-                    onKeyDown={handleKey}
+                    onKeyDown={handleKey} 
                     onChange={(event) => setUsername(event.target.value)} 
                 />
             </SearchForm>
@@ -85,7 +85,7 @@ export default function Search() {
 
             {user &&
                 <UserChat onClick={handleSelect}>
-                    <img src={user?.photoURl} alt='user1' />
+                    <img src={user?.photoURl} alt='' />
                     <UserChatInfo>
                         <span>{user?.displayName}</span>
                     </UserChatInfo>
@@ -135,6 +135,7 @@ const UserChat = styled.div`
 
 const UserChatInfo = styled.div`
     color: #D1D7DB;
+    
     > span {
         font-weight: 500;
     }

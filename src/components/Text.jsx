@@ -1,21 +1,38 @@
-import React from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import styled from 'styled-components';
+import { AuthContext } from '../context/AuthContext';
+import { ChatContext } from '../context/ChatContext';
 
-export default function Message() {
+export default function Message({ message }) {
+    const { currentUser } = useContext(AuthContext);
+    const { data } = useContext(ChatContext);
+
+    const ref = useRef();
+
+    useEffect(() => {
+        ref.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [message]);
+
+    const timestamp = message.date.toDate().getTime();
+    const messageTime = new Date(timestamp).toLocaleTimeString('en-IN', { hour: "2-digit", minute: "2-digit" });
+
+    // const timeNow =Timestamp.now().toDate().getTime();
+    // var diffInMillis = timeNow - timestamp;
+
     return (
-        <TextContainer>
+        <TextContainer ref={ref} className={`${message.senderId === currentUser.uid && 'owner'}`}>
             <TextInfo>
-                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/800px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png' alt='logo' />
+                <img 
+                    src={message.senderId === currentUser.uid ? currentUser.photoURL : data.user.photoURL} 
+                    alt=''
+                />
 
-                <span>just now</span>
+                <span>{messageTime}</span>
             </TextInfo>
 
             <TextContent className='messageContent'>
-                <p>
-                    {/* Hello */}
-                    This icon set is meant to be in sync with Google's Material Icons. Therefore, we don't accept fixes, additions, or any other contributions that would make this package diverge from the source.
-                </p>
-                {/* <img src='https://cdn.donmai.us/sample/23/7b/__rowlet_and_decidueye_pokemon_drawn_by_tako2_eaka__sample-237b1854c64bf81f0a160373209795a1.jpg' alt='shared' /> */}
+                {message.text && <p>{message.text}</p>}
+                {message.image && <img src={message.image} alt='' />}
             </TextContent>
         </TextContainer>
     );
@@ -37,6 +54,12 @@ const TextContainer = styled.div`
                 color: #E9EDEF;
                 padding: 10px 20px;
                 border-radius: 10px 0 10px 10px;
+            }
+
+            > img {
+                border: 12px solid #128C7E;
+                border-radius: 10px 0 10px 10px;
+                width: 50%;
             }
         }
     }
@@ -71,6 +94,8 @@ const TextContent = styled.div`
     }
 
     > img {
+        border: 12px solid #202C33;
+        border-radius: 0 10px 10px 10px;
         width: 50%;
     }
 `;

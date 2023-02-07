@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SocialLinks from '../components/SocialLinks';
 
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
@@ -12,9 +12,11 @@ import { doc, setDoc } from 'firebase/firestore';
 
 export default function RegisterPage() {
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         e.preventDefault();
 
         const displayName = e.target[0].value;
@@ -24,7 +26,7 @@ export default function RegisterPage() {
 
         try {
             const res = await createUserWithEmailAndPassword(auth, email, password);
-    
+            
             const storageRef = ref(storage, `${displayName}`);
     
             await uploadBytesResumable(storageRef, file).then(() => {
@@ -32,7 +34,7 @@ export default function RegisterPage() {
                     try {
                         await updateProfile(res.user, {
                             displayName,
-                            photoURL: downloadURL
+                            photoURL: downloadURL,
                         });
 
                         await setDoc(doc(db, "users", res.user.uid), {
@@ -42,23 +44,20 @@ export default function RegisterPage() {
                             photoURL: downloadURL,
                         });
                         
-                        await setDoc(doc(db, "userChats", res.user.uid), {
-                            // uid: res.user.uid, 
-                            // displayName, 
-                            // email, 
-                            // photoURL: downloadURL,
-                        });
+                        await setDoc(doc(db, "userChats", res.user.uid), {});
 
                         navigate('/');
                     }
                     catch (error) {
                         setError(true);
+                        setLoading(false);
                     }
                 });
             });
         }
         catch (error) {
             setError(true);
+            setLoading(false);
         }
     }
 
@@ -66,7 +65,6 @@ export default function RegisterPage() {
         <RegisterPageContainer>
             <RegisterFormWrapper>
                 <RegisterForm onSubmit={handleSubmit}>
-                    {/* <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1280px-Instagram_logo.svg.png' alt='logo' /> */}
                     <h1>Telechat</h1>
 
                     <h2>Sign up. Its FREE!</h2>
@@ -84,13 +82,14 @@ export default function RegisterPage() {
                         <h4>Add an avatar</h4>
                     </label>
 
-                    <button>Sign up</button>
+                    <button disabled={loading}>Sign up</button>
 
+                    {loading && <span className='loading'>Creating user profile. Please wait...</span>}
                     {error && <span>Something went wrong!</span>}
                 </RegisterForm>
 
                 <LoginBox>
-                    <h4>Have an account? <span onClick={() => {navigate('/');}}>Log in</span></h4>
+                    <h4>Have an account? <Link className='login-link' to='/login'><span>Log in</span></Link></h4>
                 </LoginBox>
 
                 <SocialLinks />
@@ -193,6 +192,19 @@ const RegisterForm = styled.form`
         }
     }
 
+    > span {
+        width: fit-content;
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 15px auto;
+        color: red;
+    }
+
+    .loading {
+        color: #128C7E;
+    }
+
     > h2 {
         display: block;
         text-align: center;
@@ -221,10 +233,13 @@ const LoginBox = styled.div`
         font-weight: 400;
         margin: 0 auto;
 
-        > span {
-            color: #128C7E;
-            cursor: pointer;
+        > .login-link {
             text-decoration: none;
+
+            > span {
+                color: #128C7E;
+                cursor: pointer;
+            }
         }
     }
 `;

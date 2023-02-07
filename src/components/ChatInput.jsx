@@ -1,25 +1,90 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
 
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import ImageIcon from '@mui/icons-material/Image';
 import SendIcon from '@mui/icons-material/Send';
 
+import { AuthContext } from '../context/AuthContext';
+import { ChatContext } from '../context/ChatContext';
+import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
+import { db, storage } from '../lib/config/firebase';
+import { v4 as uuid } from 'uuid';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+
 export default function ChatInput() {
+    const [text, setText] = useState('');
+    const [image, setImage] = useState(null);
+
+    const { currentUser } = useContext(AuthContext);
+    const { data } = useContext(ChatContext);
+
+    const handleSend = async () => {
+        if(image) {
+            const storageRef = ref(storage, uuid());
+
+            await uploadBytesResumable(storageRef, image).then(() => {
+                getDownloadURL(storageRef).then(async (downloadURL) => {
+                    await updateDoc(doc(db, 'chats', data.chatId), {
+                        messages: arrayUnion({
+                            id: uuid(),
+                            text,
+                            senderId: currentUser.uid,
+                            date: Timestamp.now(),
+                            image: downloadURL
+                        })
+                    });
+                });
+            });
+        }
+        
+        else if(text !== '') {
+            await updateDoc(doc(db, 'chats', data.chatId), {
+                messages: arrayUnion({
+                    id: uuid(),
+                    text,
+                    senderId: currentUser.uid,
+                    date: Timestamp.now(),
+                })
+            });
+        }
+
+        await updateDoc(doc(db, 'userChats', currentUser.uid), {
+            [data.chatId + '.lastMessage']: {
+                text
+            },
+            [data.chatId + '.date']: serverTimestamp()
+        });
+        
+        await updateDoc(doc(db, 'userChats', data.user.uid), {
+            [data.chatId + '.lastMessage']: {
+                text
+            },
+            [data.chatId + '.date']: serverTimestamp()
+        });
+
+        setText('');
+        setImage(null);
+    }
+
+    const handleEnterButton = (e) => {
+        (e.code === 'Enter') && handleSend();
+    }
+
     return (
         <ChatInputContainer>
-            <input type='text' placeholder='Type something here...' />
+            <input onKeyDown={handleEnterButton} value={text} onChange={(e) => setText(e.target.value)} type='text' placeholder='Type something here...' />
 
             <Send>
                 <AttachmentIcon />
 
-                <input type='file' id='fileUpload' />
+                <input onChange={(e) => setImage(e.target.files[0])} type='file' id='fileUpload' />
 
                 <label htmlFor='fileUpload'>
                     <ImageIcon />
                 </label>
 
-                <button>
+                <button onClick={handleSend}>
                     <SendIcon />
                 </button>
             </Send>

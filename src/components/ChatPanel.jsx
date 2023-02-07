@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
@@ -6,13 +6,16 @@ import ChatInput from './ChatInput';
 import DuoIcon from '@mui/icons-material/Duo';
 import CallIcon from '@mui/icons-material/Call';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { ChatContext } from '../context/ChatContext';
 
 
 export default function ChatPanel() {
+    const { data } = useContext(ChatContext);
+
     return (
         <ChatPanelContainer>
             <ChatInfo>
-                <span>Jane</span>
+                <span>{data.user?.displayName}</span>
                 <ChatIcons>
                     <DuoIcon />
                     <CallIcon />

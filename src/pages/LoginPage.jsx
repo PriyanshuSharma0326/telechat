@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import SocialLinks from '../components/SocialLinks';
 
-// import { auth } from '../lib/config/firebase';
-
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/config/firebase';
 
 export default function LoginPage() {
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         e.preventDefault();
 
         const email = e.target[0].value;
@@ -20,9 +20,11 @@ export default function LoginPage() {
 
         try {
            await signInWithEmailAndPassword(auth, email, password);
+           navigate("/");
         }
         catch (error) {
             setError(true);
+            setLoading(false);
         }
     }
 
@@ -30,7 +32,6 @@ export default function LoginPage() {
         <LoginPageContainer>
             <LoginFormWrapper>
                 <LoginForm onSubmit={handleSubmit}>
-                    {/* <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1280px-Instagram_logo.svg.png' alt='logo' /> */}
                     <h1>Telechat</h1>
 
                     <input placeholder='Email' type='email' />
@@ -39,11 +40,12 @@ export default function LoginPage() {
 
                     <button>Log in</button>
 
+                    {loading && <span className='loading'>Please wait...</span>}
                     {error && <span>Something went wrong!</span>}
                 </LoginForm>
 
                 <SignUpBox>
-                    <h4>Don't have an account? <span onClick={() => {navigate('/register');}}>Register</span></h4>
+                    <h4>Don't have an account? <Link className='register-link' to='/register'><span>Register</span></Link></h4>
                 </SignUpBox>
 
                 <SocialLinks />
@@ -117,6 +119,19 @@ const LoginForm = styled.form`
             cursor: pointer;
         }
     }
+
+    > span {
+        width: fit-content;
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 15px auto;
+        color: red;
+    }
+
+    .loading {
+        color: #128C7E;
+    }
 `;
 
 const SignUpBox = styled.div`
@@ -134,11 +149,14 @@ const SignUpBox = styled.div`
         font-weight: 400;
         margin: 0 auto;
 
-        > span {
-            color: #128C7E;
-            font-weight: 600;
-            cursor: pointer;
+        > .register-link {
             text-decoration: none;
+            
+            > span {
+                color: #128C7E;
+                font-weight: 600;
+                cursor: pointer;
+            }
         }
     }
 `;
