@@ -1,46 +1,70 @@
-# Getting Started with Create React App and Redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Telechat
 
-## Available Scripts
+Realtime private chat application based on Firebase Firestore. The application supports sending text messages and images between two parties. In this web application, context API is used to share & toggle states among different components. 
 
-In the project directory, you can run:
 
-### `npm start`
+## Run Locally
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Clone the project
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+  git clone https://github.com/PriyanshuSharma0326/telechat.git
+```
 
-### `npm test`
+Go to the project directory
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+  cd telechat/
+```
 
-### `npm run build`
+Install dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+  npm i @reduxjs/toolkit
+  npm i @emotion/react @emotion/styled
+  npm i @mui/icons-material @mui/material
+  npm i firebase
+  npm i react
+  npm i react react-dom
+  npm i react-firebase-hooks
+  npm i react-redux
+  npm i react-router-dom
+  npm i react-scripts
+  npm i styled-components
+  npm i uuid
+  npm i web-vitals
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Start the server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+  npm start
+```
+## Environment Variables
 
-### `npm run eject`
+To run this project, you will need to add the following environment variables to your .env file
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`REACT_APP_API_KEY=YOUR_API_KEY`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`REACT_APP_AUTH_DOMAIN=YOUR_AUTH_DOMAIN`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`REACT_APP_PROJECT_ID=YOUR_PROJECT_ID`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`REACT_APP_STORAGE_BUCKET=YOUR_STORAGE_BUCKET`
 
-## Learn More
+`REACT_APP_SENDER_ID=YOUR_SENDER_ID`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`REACT_APP_APP_ID=YOUR_APP_ID`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Tech Stack
+
+**Client:** React, contextAPI, MaterialUI, styled-components
+
+**Server:** Firestore, Google Auth
+
+
+## Deployment
+
+Deploy this project on Vercel.
