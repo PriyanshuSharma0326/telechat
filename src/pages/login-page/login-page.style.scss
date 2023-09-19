@@ -1,0 +1,158 @@
+.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: rgb(10,10,10);
+    background: linear-gradient(0deg, rgba(10,10,10,1) 0%, rgba(27,27,27,1) 100%);
+
+    width: 100vw;
+    max-height: 100vh;
+    overflow-y: scroll;
+    padding-bottom: 3rem;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .header {
+        width: 100%;
+        padding: 2rem 3rem;
+        background-color: var(--black);
+
+        .logo-container {
+            margin: 0 auto;
+            height: 2.25rem;
+
+            img {
+                height: 100%;
+                width: auto;
+                filter: invert(100%);
+            }
+        }
+    }
+
+    .login-page-main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 47rem;
+        background-color: var(--black);
+        border-radius: 0.5rem;
+        margin-top: 2rem;
+        padding-bottom: 3rem;
+
+        .login-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            width: 45%;
+    
+            h1 {
+                padding: 1.5rem 0;
+                color: var(--white);
+                font-size: 2.4rem;
+                font-weight: 700;
+            }
+
+            .buttons-container {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+
+                .login-button {
+                    display: flex;
+                    align-items: center;
+                    border-radius: 2rem;
+                    outline: none;
+                    padding: 0.6rem 2rem;
+                    font-size: 0.95rem;
+                    font-weight: 600;
+    
+                    background-color: transparent;
+                    border: 1px solid var(--grey-4);
+                    color: var(--white);
+        
+                    .button-icon {
+                        line-height: 0;
+                        .MuiSvgIcon-root {
+                            font-size: 1.65rem;
+                            color: var(--white);
+                        }
+        
+                        img {
+                            width: 1.45rem;
+                            height: auto;
+                        }
+                    }
+    
+                    p {
+                        margin: 0 auto;
+                    }
+        
+                    &:hover {
+                        cursor: pointer;
+                        border: 1px solid var(--white);
+                    }
+                }
+            }
+        }
+
+        .divider {
+            width: 75%;
+            height: 1px;
+            margin: 2rem 0;
+            border-bottom: 1px solid var(--grey-5);
+        }
+
+        .login-form {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+
+            .submit-button {
+                margin: 0 auto;
+                width: 100%;
+                background-color: var(--spotify-green-2);
+                color: var(--black);
+                font-weight: 600;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                border-radius: 2rem;
+                transition: all 0.1s ease-in-out;
+                
+                font-size: 0.95rem;
+                padding: 0.9rem 0;
+
+                &:hover {
+                    transform: scale(1.03);
+                }
+            }
+        }
+
+        .go-to-login {
+            margin: 0 auto;
+            padding: 1rem 0;
+
+            h1 {
+                color: var(--grey-4);
+                font-size: 0.9rem;
+                font-weight: 600;
+
+                span {
+                    text-decoration: underline;
+                    text-decoration-thickness: 2px;
+                    color: var(--white);
+
+                    &:hover {
+                        cursor: pointer;
+                        color: var(--spotify-green-2);
+                    }
+                }
+            }
+        }
+    }
+}

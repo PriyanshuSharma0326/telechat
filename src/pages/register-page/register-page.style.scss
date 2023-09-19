@@ -1,0 +1,156 @@
+.register-page {
+    display: flex;
+    justify-content: center;
+
+    background-color: var(--white);
+    width: 100vw;
+    max-height: 100vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .register-page-main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 28rem;
+
+        .signup-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            width: 90%;
+
+            .logo-container {
+                margin: 0 auto;
+                height: 2.5rem;
+                margin-bottom: 1rem;
+
+                img {
+                    height: 100%;
+                    width: auto;
+                }
+            }
+    
+            h1 {
+                font-size: 1.4rem;
+                font-weight: 800;
+                margin-bottom: 1rem;
+            }
+    
+            .signup-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                border-radius: 2rem;
+                outline: none;
+                border: none;
+                padding: 0.65rem 2rem;
+    
+                font-size: 0.95rem;
+                font-weight: 600;
+                transition: all 0.1s ease-in-out;
+    
+                .button-icon {
+                    line-height: 0;
+                    .MuiSvgIcon-root {
+                        font-size: 1.75rem;
+                        color: var(--white);
+                    }
+    
+                    img {
+                        width: 1.5rem;
+                        height: auto;
+                    }
+                }
+    
+                &.facebook {
+                    background-color: var(--facebook-blue);
+                    color: var(--white);
+                }
+    
+                &.google {
+                    color: var(--grey-3);
+                    border: 2px solid var(--grey-3);
+                }
+    
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.02);
+                }
+            }
+    
+            .divider {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 0.8rem;
+                color: var(--grey-4);
+        
+                hr {
+                    width: 42.5%;
+                    height: 1px;
+                }
+    
+                span {
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    letter-spacing: 0.2rem;
+                }
+            }
+        }
+
+        .signup-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 1.25rem;
+            padding-bottom: 8rem;
+
+            .submit-button {
+                margin: 0 auto;
+                width: fit-content;
+                background-color: var(--spotify-green-2);
+                color: var(--black);
+                font-weight: 600;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                border-radius: 2rem;
+                transition: all 0.1s ease-in-out;
+                
+                font-size: 1.1rem;
+                padding: 1.15rem 2.75rem;
+
+                &:hover {
+                    transform: scale(1.03);
+                }
+            }
+
+            .go-to-login {
+                margin: 0 auto;
+
+                h1 {
+                    font-size: 0.9rem;
+                    font-weight: 600;
+    
+                    span {
+                        text-decoration: underline;
+                        text-decoration-thickness: 2px;
+                        color: var(--spotify-green-1);
+
+                        &:hover {
+                            cursor: pointer;
+                            color: var(--spotify-green-2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

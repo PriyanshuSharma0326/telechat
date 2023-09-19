@@ -1,0 +1,103 @@
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+
+    .form-input-label {
+        color: var(--dark);
+        font-size: 0.85rem;
+        font-weight: 700;
+
+        span {
+            color: var(--red);
+        }
+
+        &.dark {
+            color: var(--white);
+        }
+    }
+
+    .form-input {
+        font-size: 0.95rem;
+        padding: 0.85rem;
+        outline: none;
+        border: 1px solid var(--grey-5);
+        border-radius: 0.25rem;
+        color: var(--black);
+
+        &::placeholder {
+            font-weight: 500;
+            color: var(--grey-5);
+        }
+
+        &:focus {
+            outline: 1px solid black;
+        }
+
+        &.dark {
+            color: white;
+            background-color: var(--black);
+            border: 1px solid var(--grey-2);
+
+            &::placeholder {
+                font-weight: 500;
+                color: var(--grey-2);
+            }
+
+            &:focus {
+                outline: 2px solid var(--white);
+            }
+        }
+    }
+
+    .radio-input-group {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+
+            .radio-input {
+                display: none;
+            }
+
+            .checkmark {
+                position: relative;
+                top: 0;
+                left: 0;
+                height: 16px;
+                width: 16px;
+                background-color: var(--white);
+                border-radius: 50%;
+                border: 1px solid var(--grey-3);
+            }
+
+            .radio-input:checked + .checkmark {
+                background-color: var(--spotify-green-1);
+                border: 1px solid var(--spotify-green-1);
+            }
+            
+            .radio-input:checked + .checkmark::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: white;
+                display: block;
+            }
+        }
+    }
+
+    .error-text {
+        font-size: 0.9rem;
+        color: var(--red);
+    }
+}

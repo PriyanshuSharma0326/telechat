@@ -1,0 +1,38 @@
+.message-input-container {
+    padding: 1rem 1.5rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    input {
+        border-radius: 2rem;
+        width: calc(100% - 5rem);
+        background-color: var(--white);
+        padding: 1.15rem 1.5rem;
+        border: none;
+        outline: none;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+        font-size: 1rem;
+    }
+
+    .send-icon {
+        line-height: 0;
+        background-color: var(--blue);
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+
+        .MuiSvgIcon-root {
+            font-size: 1.35rem;
+            color: var(--white);
+        }
+    }
+}

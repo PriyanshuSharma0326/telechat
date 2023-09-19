@@ -1,0 +1,59 @@
+.sidebar {
+    width: 22.5%;
+    background-color: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    .sidebar-header {
+        padding: 1rem;
+        background-color: var(--blue);
+
+        h1 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--white);
+        }
+    }
+
+    .sidebar-search {
+        padding: 1rem;
+        background-color: var(--blue);
+
+        input {
+            width: 100%;
+            border: none;
+            outline: none;
+            border-radius: 0.25rem;
+            padding: 0.75rem 1rem;
+            background-color: var(--grey-7);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+    }
+
+    .contacts-list-container {
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 8.1rem);
+
+        position: relative;
+
+        .list-title {
+            padding: 0.5rem 1rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: var(--grey-4);
+        }
+
+        .contacts-list {
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100% - 5rem - 2.05rem);
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+}
