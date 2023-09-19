@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './contact-bar.style.scss';
+import { StyleContext } from '../../context/style-context';
 
 function ContactBar() {
+    const { darkMode } = useContext(StyleContext);
+
     return (
-        <div className='contact-bar'>
+        <div className={`contact-bar ${darkMode && 'dark-mode'}`}>
             <div className="user-info">
                 <div className="user-image">
                     <img src="https://img.fcbayern.com/image/upload/t_cms-1x1-seo/v1691827799/cms/public/images/fcbayern-com/players/spielerportraits/ganzkoerper/harry-kane.png" alt="" />

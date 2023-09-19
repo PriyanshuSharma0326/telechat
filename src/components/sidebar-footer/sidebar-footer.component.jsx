@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import './sidebar-footer.style.scss';
 
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import { StyleContext } from '../../context/style-context';
 
 function SidebarFooter() {
-    const [darkMode, setDarkMode] = useState(false);
+    const {darkMode, setDarkMode} = useContext(StyleContext);
+
+    const changeMode = () => {
+        setDarkMode(!darkMode);
+    }
 
     return (
         <div className="sidebar-footer">
@@ -20,7 +25,10 @@ function SidebarFooter() {
             </div>
 
             <div className="page-mode-icon">
-                {!darkMode ? <DarkModeIcon /> : <LightModeIcon />}
+                {!darkMode ? 
+                    <DarkModeIcon onClick={changeMode} /> : 
+                    <LightModeIcon onClick={changeMode} />
+                }
             </div>
         </div>
     )

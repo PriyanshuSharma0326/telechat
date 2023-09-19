@@ -43,5 +43,24 @@
 
     &:hover {
         background-color: var(--grey-7);
+        cursor: pointer;
+    }
+
+    &.dark-mode {
+        .user-info {
+            .contact-text {
+                h1 {
+                    color: var(--white);
+                }
+
+                p {
+                    color: var(--grey-6);
+                }
+            }
+        }
+
+        &:hover {
+            background-color: var(--grey-2);
+        }
     }
 }

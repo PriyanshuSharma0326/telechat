@@ -35,4 +35,17 @@
             color: var(--white);
         }
     }
+
+    &.dark-mode {
+        input {
+            background-color: var(--dark);
+            border: 2px solid var(--white);
+            box-shadow: none;
+            color: var(--white);
+        }
+    }
+
+    .send-icon {
+        box-shadow: none;
+    }
 }

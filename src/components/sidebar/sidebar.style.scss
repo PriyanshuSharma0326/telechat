@@ -23,8 +23,8 @@
             width: 100%;
             border: none;
             outline: none;
-            border-radius: 0.25rem;
-            padding: 0.75rem 1rem;
+            border-radius: 2rem;
+            padding: 0.75rem 1.15rem;
             background-color: var(--grey-7);
             font-size: 0.95rem;
             font-weight: 500;
@@ -35,14 +35,17 @@
         display: flex;
         flex-direction: column;
         height: calc(100% - 8.1rem);
-
         position: relative;
 
         .list-title {
             padding: 0.5rem 1rem;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            color: var(--grey-4);
+
+            h2 {
+                text-transform: uppercase;
+                font-size: 0.85rem;
+                font-weight: 500;
+                color: var(--grey-4);
+            }
         }
 
         .contacts-list {
@@ -53,6 +56,18 @@
 
             &::-webkit-scrollbar {
                 display: none;
+            }
+        }
+    }
+
+    &.dark-mode {
+        .contacts-list-container {
+            background-color: var(--grey-1);
+
+            .list-title {
+                h2 {
+                    color: var(--grey-7);
+                }
             }
         }
     }

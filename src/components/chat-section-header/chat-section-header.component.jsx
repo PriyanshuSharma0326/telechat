@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './chat-section-header.style.scss';
 
 import SearchIcon from '@mui/icons-material/Search';
@@ -6,10 +6,13 @@ import CallIcon from '@mui/icons-material/Call';
 import DuoIcon from '@mui/icons-material/Duo';
 import InfoIcon from '@mui/icons-material/Info';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { StyleContext } from '../../context/style-context';
 
 function ChatSectionHeader() {
+    const { darkMode } = useContext(StyleContext);
+
     return (
-        <div className='chat-section-header'>
+        <div className={`chat-section-header ${darkMode && 'dark-mode'}`}>
             <div className="user">
                 <div className="user-image">
                     <img src="https://img.fcbayern.com/image/upload/t_cms-1x1-seo/v1691827799/cms/public/images/fcbayern-com/players/spielerportraits/ganzkoerper/harry-kane.png" alt="" />
