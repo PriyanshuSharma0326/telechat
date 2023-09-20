@@ -4,9 +4,12 @@ import './sidebar-footer.style.scss';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { StyleContext } from '../../context/style-context';
+import { UserContext } from '../../context/user-context';
 
 function SidebarFooter() {
     const {darkMode, setDarkMode} = useContext(StyleContext);
+
+    const { currentUser } = useContext(UserContext);
 
     const changeMode = () => {
         setDarkMode(!darkMode);
@@ -16,11 +19,11 @@ function SidebarFooter() {
         <div className="sidebar-footer">
             <div className="user">
                 <div className="user-image">
-                    <img src="https://img.fcbayern.com/image/upload/t_cms-1x1-seo/v1691827799/cms/public/images/fcbayern-com/players/spielerportraits/ganzkoerper/harry-kane.png" alt="" />
+                    <img src={currentUser?.photoURL} alt={currentUser?.displayName} />
                 </div>
 
                 <div className="user-name">
-                    <h1>Dilshan</h1>
+                    <h1>{currentUser?.displayName}</h1>
                 </div>
             </div>
 

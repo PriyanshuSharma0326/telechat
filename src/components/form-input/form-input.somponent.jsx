@@ -1,6 +1,8 @@
 import React from 'react';
 import './form-input.style.scss';
 
+import AddPhotoAlternateTwoToneIcon from '@mui/icons-material/AddPhotoAlternateTwoTone';
+
 function FormInput({ labelText, inputType, inputOptions, errorText, mode }) {
     return (
         <div className='form-group'>
@@ -62,6 +64,18 @@ function FormInput({ labelText, inputType, inputOptions, errorText, mode }) {
                         <span className="checkmark"></span>
                         {inputOptions.value5}
                     </label>
+                </div>
+            }
+
+            {inputType === 'image' && 
+                <div className="image-input-group">
+                    <label htmlFor={inputOptions.id}>
+                        <AddPhotoAlternateTwoToneIcon /> <span>Add an image</span>
+                    </label>
+                    <input 
+                        className='image-input' 
+                        {...inputOptions} 
+                    />
                 </div>
             }
 

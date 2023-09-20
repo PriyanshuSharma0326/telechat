@@ -1,13 +1,14 @@
 import React from 'react';
-import './shared-layout.style.scss';
-import { Outlet } from 'react-router-dom';
+import './home.style.scss';
 import Sidebar from '../../components/sidebar/sidebar.component';
+import Main from '../../pages/app-main/app-main';
 
 function SharedLayout() {
     return (
-        <div className='shared-layout'>
+        <div className='home'>
             <Sidebar />
-            <Outlet />
+
+            <Main />
         </div>
     )
 }

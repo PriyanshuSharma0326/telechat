@@ -26,8 +26,8 @@
 
             .logo-container {
                 margin: 0 auto;
-                height: 2.5rem;
-                margin-bottom: 1rem;
+                height: 3rem;
+                margin-bottom: 0.5rem;
 
                 img {
                     height: 100%;
@@ -57,6 +57,7 @@
     
                 .button-icon {
                     line-height: 0;
+
                     .MuiSvgIcon-root {
                         font-size: 1.75rem;
                         color: var(--white);
@@ -66,11 +67,6 @@
                         width: 1.5rem;
                         height: auto;
                     }
-                }
-    
-                &.facebook {
-                    background-color: var(--facebook-blue);
-                    color: var(--white);
                 }
     
                 &.google {
@@ -115,7 +111,7 @@
             .submit-button {
                 margin: 0 auto;
                 width: fit-content;
-                background-color: var(--spotify-green-2);
+                background-color: var(--green-2);
                 color: var(--black);
                 font-weight: 600;
                 border: none;
@@ -142,11 +138,11 @@
                     span {
                         text-decoration: underline;
                         text-decoration-thickness: 2px;
-                        color: var(--spotify-green-1);
+                        color: var(--green-2);
 
                         &:hover {
                             cursor: pointer;
-                            color: var(--spotify-green-2);
+                            color: var(--green-1);
                         }
                     }
                 }

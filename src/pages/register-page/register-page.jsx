@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './register-page.style.scss';
-import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import FormInput from '../../components/form-input/form-input.somponent';
 import { useNavigate } from 'react-router-dom';
+import { addImageToStorage, createUserEmailPasswordMethod } from '../../lib/utils/firebase.utils';
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -27,16 +27,25 @@ function RegisterPage() {
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
-        setFormInputs({...formInputs, [name]: value});
-    }
+        setFormInputs({ ...formInputs, [name]: value });
+    };
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        console.log(formInputs);
+
+        const image = e.target.form[8].files[0];
+
+        try {
+            const { user } = await createUserEmailPasswordMethod(formInputs.email, formInputs.password);
+
+            await addImageToStorage(image, formInputs.name, user);
+            navigate('/');
+        }
+        catch(err) {}
     }
 
     const goToLogin = () => {
-        navigate('/accounts/login');
+        navigate('/login');
     }
 
     return (
@@ -44,17 +53,10 @@ function RegisterPage() {
             <div className="register-page-main">
                 <div className="signup-options">
                     <div className="logo-container">
-                        <img src="https://assets.stickpng.com/images/5ece4ff9123d6d0004ce5f89.png" alt="logo" />
+                        <img src="https://cdn-icons-png.flaticon.com/512/2885/2885504.png" alt="logo" />
                     </div>
 
-                    <h1>Sign up for free to start listening.</h1>
-
-                    <button type='button' className='signup-button facebook'>
-                        <div className="button-icon">
-                            <FacebookRoundedIcon />
-                        </div>
-                        <p>Sign up with Facebook</p>
-                    </button>
+                    <h1>Sign up for free to start chatting.</h1>
 
                     <button type='button' className='signup-button google'>
                         <div className="button-icon">
@@ -128,6 +130,19 @@ function RegisterPage() {
                             value5: 'Prefer not to say',
                             onChange: changeHandler,
                             checked: formInputs.gender
+                        }}
+                    />
+
+                    <FormInput 
+                        labelText='Add a profile photo' 
+                        inputType='image' 
+                        errorText={formErrors.imageURLError} 
+                        inputOptions={{
+                            type: 'file',
+                            id: 'image',
+                            name: 'image',
+                            // onChange: imageChangeHandler,
+                            // value: image
                         }}
                     />
 

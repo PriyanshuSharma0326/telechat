@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './login-page.style.scss';
-import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import FormInput from '../../components/form-input/form-input.somponent';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,20 +24,20 @@ function LoginPage() {
     }
 
     const goToLogin = () => {
-        navigate('/accounts/register');
+        navigate('/register');
     }
 
     return (
         <div className='login-page'>
             <div className="header">
                 <div className="logo-container">
-                    <img src="https://assets.stickpng.com/images/5ece4ff9123d6d0004ce5f89.png" alt="logo" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/2885/2885504.png" alt="logo" />
                 </div>
             </div>
 
             <div className="login-page-main">
                 <div className="login-options">
-                    <h1>Log in to Spotify</h1>
+                    <h1>Log in to Telechat</h1>
 
                     <div className="buttons-container">
                         <button type='button' className='login-button'>
@@ -46,13 +45,6 @@ function LoginPage() {
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png" alt="logo" />
                             </div>
                             <p>Continue with Google</p>
-                        </button>
-
-                        <button type='button' className='login-button'>
-                            <div className="button-icon">
-                                <FacebookRoundedIcon />
-                            </div>
-                            <p>Continue with Facebook</p>
                         </button>
                     </div>
                 </div>
@@ -100,7 +92,7 @@ function LoginPage() {
                 </div>
 
                 <div className="go-to-login">
-                    <h1>Don't have an account? <span onClick={goToLogin}>Sign up for Spotify</span></h1>
+                    <h1>Don't have an account? <span onClick={goToLogin}>Sign up for Telechat</span></h1>
                 </div>
             </div>
         </div>

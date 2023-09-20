@@ -8,7 +8,7 @@ function Sidebar() {
     const { darkMode } = useContext(StyleContext);
 
     return (
-        <div className={`sidebar ${darkMode && 'dark-mode'}`}>
+        <div className={`sidebar${darkMode ? ' dark-mode' : ''}`}>
             <div className="sidebar-header">
                 <h1>Chats</h1>
             </div>

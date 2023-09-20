@@ -7,19 +7,21 @@ import DuoIcon from '@mui/icons-material/Duo';
 import InfoIcon from '@mui/icons-material/Info';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { StyleContext } from '../../context/style-context';
+import { UserContext } from '../../context/user-context';
 
 function ChatSectionHeader() {
     const { darkMode } = useContext(StyleContext);
+    const { currentUser } = useContext(UserContext);
 
     return (
         <div className={`chat-section-header ${darkMode && 'dark-mode'}`}>
             <div className="user">
                 <div className="user-image">
-                    <img src="https://img.fcbayern.com/image/upload/t_cms-1x1-seo/v1691827799/cms/public/images/fcbayern-com/players/spielerportraits/ganzkoerper/harry-kane.png" alt="" />
+                    <img src={currentUser?.photoURL} alt={currentUser?.displayName} />
                 </div>
 
                 <div className="user-name">
-                    <h1>Harry Kane</h1>
+                    <h1>{currentUser?.displayName}</h1>
                 </div>
             </div>
 

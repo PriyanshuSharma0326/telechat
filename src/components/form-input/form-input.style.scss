@@ -21,7 +21,7 @@
         font-size: 0.95rem;
         padding: 0.85rem;
         outline: none;
-        border: 1px solid var(--grey-5);
+        border: 1px solid var(--grey-4);
         border-radius: 0.25rem;
         color: var(--black);
 
@@ -37,11 +37,11 @@
         &.dark {
             color: white;
             background-color: var(--black);
-            border: 1px solid var(--grey-2);
+            border: 1px solid var(--grey-4);
 
             &::placeholder {
                 font-weight: 500;
-                color: var(--grey-2);
+                color: var(--grey-4);
             }
 
             &:focus {
@@ -77,8 +77,8 @@
             }
 
             .radio-input:checked + .checkmark {
-                background-color: var(--spotify-green-1);
-                border: 1px solid var(--spotify-green-1);
+                background-color: var(--green-1);
+                border: 1px solid var(--green-1);
             }
             
             .radio-input:checked + .checkmark::after {
@@ -93,6 +93,33 @@
                 background-color: white;
                 display: block;
             }
+        }
+    }
+
+    .image-input-group{
+        label {
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+
+            .MuiSvgIcon-root {
+                color: var(--green-1);
+            }
+
+            span {
+                font-size: 0.85rem;
+                font-weight: 500;
+                color: var(--green-1);
+            }
+        }
+
+        .image-input {
+            border: none;
+            outline: none;
+            width: fit-content;
+            display: none;
         }
     }
 
