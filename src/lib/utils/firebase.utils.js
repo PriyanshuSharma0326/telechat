@@ -1,8 +1,10 @@
 import { auth, db, provider, storage } from "../config/firebase";
 
 import { 
+    collection,
     doc,
     getDoc,
+    getDocs,
     setDoc,
 } from 'firebase/firestore';
 
@@ -18,7 +20,7 @@ import {
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 // Method to Create User Doc to collections
-const createUserDoc = async (user) => {
+const createUserDoc = async (user, name, imageURL) => {
     if(!user) return;
 
     const userDocRef = doc(db, 'users', user.uid);
@@ -26,14 +28,14 @@ const createUserDoc = async (user) => {
     const userSnapshot = await getDoc(userDocRef);
 
     if(!userSnapshot.exists()) {
-        const { displayName, email, photoURL, uid } = user;
+        const { email, uid } = user;
 
         try {
             await setDoc(userDocRef, {
                 uid,
-                displayName,
+                displayName: name,
                 email,
-                photoURL,
+                photoURL: imageURL,
             });
         }
         catch(err) {
@@ -79,18 +81,16 @@ const addImageToStorage = async (file, clientName, user) => {
 
     const storageRef = ref(storage, uid);
 
-    // const url = 
-    await uploadBytesResumable(storageRef, file).then(() => {
+    await uploadBytesResumable(storageRef, file)
+    .then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
             try {
                 await updateProfile(user, {
                     displayName: clientName,
                     photoURL: downloadURL,
                 });
-
-                await createUserDoc(user);
-
-                await setDoc(doc(db, "userChats", uid), {});
+                await createUserDoc(user, clientName, downloadURL);
+                // await setDoc(doc(db, "userChats", uid), {});
             }
             catch (err) {
                 console.log(err);
@@ -99,20 +99,18 @@ const addImageToStorage = async (file, clientName, user) => {
     });
 }
 
-// Method to Get Shop Data from collections
-// const getShopDataFromCollections = async () => {
-//     const collectionRef = collection(db, 'categories');
+// Method to Get Data from collections
+const getDataFromCollections = async () => {
+    const collectionRef = collection(db, 'users');
 
-//     const q = query(collectionRef);
+    const querySnapshot = await getDocs(collectionRef);
 
-//     const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => {
+        return doc.data();
+    });
 
-//     const shopData = querySnapshot.docs.map(docSnapshot => {
-//         return docSnapshot.data();
-//     });
-
-//     return shopData;
-// }
+    return data;
+}
 
 export {
     googlePopupSignIn,
@@ -123,7 +121,5 @@ export {
     authStateChangeListener,
 
     addImageToStorage,
-
-    // addCollectionAndDocuments,
-    // getShopDataFromCollections,
+    getDataFromCollections,
 };

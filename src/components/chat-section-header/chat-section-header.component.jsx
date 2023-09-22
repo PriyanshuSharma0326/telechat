@@ -17,7 +17,7 @@ function ChatSectionHeader() {
         <div className={`chat-section-header ${darkMode && 'dark-mode'}`}>
             <div className="user">
                 <div className="user-image">
-                    <img src={currentUser?.photoURL} alt={currentUser?.displayName} />
+                    <img src={currentUser?.photoURL} alt={currentUser?.displayName} loading='lazy' />
                 </div>
 
                 <div className="user-name">

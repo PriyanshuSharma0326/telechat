@@ -2,16 +2,28 @@ import React, { useState } from 'react';
 import './login-page.style.scss';
 import FormInput from '../../components/form-input/form-input.somponent';
 import { useNavigate } from 'react-router-dom';
+import { createUserDoc, googlePopupSignIn, signInUserEmailPasswordMethod } from '../../lib/utils/firebase.utils';
+import { validateEmail } from '../../lib/utils/utils';
 
 function LoginPage() {
     const navigate = useNavigate();
 
     const defaultFormFields = {
         email: '',
+        name: '',
         password: '',
     };
 
+    const defaultFormErrors = {
+        email: '',
+        name: '',
+        password: '',
+        image: ''
+    };
+
     const [formInputs, setFormInputs] = useState(defaultFormFields);
+
+    const [formErrors, setFormErrors] = useState(defaultFormErrors);
 
     const changeHandler = (e) => {
         const { name, value } = e.target;
@@ -20,7 +32,57 @@ function LoginPage() {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        console.log(formInputs);
+
+        const validationErrors = {};
+
+        if(!formInputs.email.trim()) {
+            validationErrors.email = 'Email is required';
+        }
+        else if(!validateEmail(formInputs.email.trim())) {
+            validationErrors.email = 'Email is badly formatted';
+        }
+
+        if(!formInputs.password.trim()) {
+            validationErrors.password = 'Password is required';
+        }
+
+        if(Object.keys(validationErrors).length > 0) {
+            setFormErrors(validationErrors);
+            return;
+        }
+
+        if(Object.keys(validationErrors).length === 0) {
+            try {
+                await signInUserEmailPasswordMethod(formInputs.email, formInputs.password);
+            }
+            catch(err) {
+                if(err.code === 'auth/user-not-found') {
+                    validationErrors.email = 'No user found with this email';
+                    setFormErrors(validationErrors);
+                    return;
+                }
+                if(err.code === 'auth/invalid-login-credentials') {
+                    validationErrors.email = 'Invalid Login Credentials';
+                    validationErrors.password = 'Invalid Login Credentials';
+                    setFormErrors(validationErrors);
+                    return;
+                }
+                else if(err.code === 'auth/wrong-password') {
+                    validationErrors.password = 'Incorrect password';
+                    setFormErrors(validationErrors);
+                    return;
+                }
+            }
+        }
+    }
+
+    const googleSignInHandler = async () => {
+        const { user } = await googlePopupSignIn()
+        .catch((error) => {
+            alert(error.message);
+        });
+
+        await createUserDoc(user, user.displayName, user.photoURL);
     }
 
     const goToLogin = () => {
@@ -40,7 +102,7 @@ function LoginPage() {
                     <h1>Log in to Telechat</h1>
 
                     <div className="buttons-container">
-                        <button type='button' className='login-button'>
+                        <button type='button' className='login-button' onClick={googleSignInHandler}>
                             <div className="button-icon">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png" alt="logo" />
                             </div>
@@ -57,7 +119,7 @@ function LoginPage() {
                         labelText="Email" 
                         inputType='text' 
                         mode='dark' 
-                        // errorText={formErrors.emailError} 
+                        errorText={formErrors.email} 
                         inputOptions={{
                             placeholder: 'Email',
                             type: 'email',
@@ -72,7 +134,7 @@ function LoginPage() {
                         labelText='Password' 
                         inputType='text' 
                         mode='dark' 
-                        // errorText={formErrors.passwordError} 
+                        errorText={formErrors.password} 
                         inputOptions={{
                             placeholder: 'Password',
                             type: 'password',

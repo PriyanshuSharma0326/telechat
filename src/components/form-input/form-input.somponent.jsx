@@ -12,61 +12,6 @@ function FormInput({ labelText, inputType, inputOptions, errorText, mode }) {
 
             {inputType === 'text' && <input className={`form-input ${mode === 'dark' && 'dark'}`} {...inputOptions} />}
 
-            {inputType === 'radio' && 
-                <div className='radio-input-group'>
-                    <label className='radio-label'>
-                        <input 
-                            className='radio-input'
-                            {...inputOptions} 
-                            value={inputOptions.value1} 
-                            checked={inputOptions.checked === inputOptions.value1} 
-                        />
-                        <span className="checkmark"></span>
-                        {inputOptions.value1}
-                    </label>
-                    <label className='radio-label'>
-                        <input 
-                            className='radio-input'
-                            {...inputOptions} 
-                            value={inputOptions.value2} 
-                            checked={inputOptions.checked === inputOptions.value2} 
-                        />
-                        <span className="checkmark"></span>
-                        {inputOptions.value2}
-                    </label>
-                    <label className='radio-label'>
-                        <input 
-                            className='radio-input'
-                            {...inputOptions} 
-                            value={inputOptions.value3} 
-                            checked={inputOptions.checked === inputOptions.value3} 
-                        />
-                        <span className="checkmark"></span>
-                        {inputOptions.value3}
-                    </label>
-                    <label className='radio-label'>
-                        <input 
-                            className='radio-input'
-                            {...inputOptions} 
-                            value={inputOptions.value4} 
-                            checked={inputOptions.checked === inputOptions.value4} 
-                        />
-                        <span className="checkmark"></span>
-                        {inputOptions.value4}
-                    </label>
-                    <label className='radio-label'>
-                        <input 
-                            className='radio-input'
-                            {...inputOptions} 
-                            value={inputOptions.value5} 
-                            checked={inputOptions.checked === inputOptions.value5} 
-                        />
-                        <span className="checkmark"></span>
-                        {inputOptions.value5}
-                    </label>
-                </div>
-            }
-
             {inputType === 'image' && 
                 <div className="image-input-group">
                     <label htmlFor={inputOptions.id}>
@@ -76,6 +21,7 @@ function FormInput({ labelText, inputType, inputOptions, errorText, mode }) {
                         className='image-input' 
                         {...inputOptions} 
                     />
+                    <span>*Max size: 1MB</span>
                 </div>
             }
 

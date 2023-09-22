@@ -9,28 +9,47 @@ import { UserContext } from "./context/user-context";
 function App() {
     const { currentUser } = useContext(UserContext);
 
-    const ProtectedRoute = ({ children }) => {
+    const ProtectedRouteNoLogin = ({ children }) => {
         if (!currentUser) {
-          return <Navigate to="/login" />;
+            return <Navigate to="/login" />;
         }
-    
+
+        return children;
+    };
+
+    const ProtectedRouteOnLogin = ({ children }) => {
+        if (currentUser) {
+            return <Navigate to="/" />;
+        }
+
         return children;
     };
 
     return (
         <Routes>
-            <Route path='/'>
-                <Route index element={
-                    <ProtectedRoute>
+            <Route path='/' 
+                element={
+                    <ProtectedRouteNoLogin>
                         <Home />
-                    </ProtectedRoute>
+                    </ProtectedRouteNoLogin>
+                }
+            />
+
+            <Route path='login' 
+                element={
+                    <ProtectedRouteOnLogin>
+                        <LoginPage />
+                    </ProtectedRouteOnLogin>
                 } 
             />
-            </Route>
 
-            <Route path='login' element={<LoginPage />} />
-
-            <Route path='register' element={<RegisterPage />} />
+            <Route path='register' 
+                element={
+                    <ProtectedRouteOnLogin>
+                        <RegisterPage />
+                    </ProtectedRouteOnLogin>
+                } 
+            />
         </Routes>
     );
 }

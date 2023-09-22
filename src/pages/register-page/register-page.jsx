@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './register-page.style.scss';
 import FormInput from '../../components/form-input/form-input.somponent';
 import { useNavigate } from 'react-router-dom';
-import { addImageToStorage, createUserEmailPasswordMethod } from '../../lib/utils/firebase.utils';
+import { addImageToStorage, createUserDoc, createUserEmailPasswordMethod, googlePopupSignIn } from '../../lib/utils/firebase.utils';
+import { validateEmail, validatePassword } from '../../lib/utils/utils';
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -11,14 +12,13 @@ function RegisterPage() {
         email: '',
         name: '',
         password: '',
-        gender: '',
     };
 
     const defaultFormErrors = {
-        emailError: '',
-        nameError: '',
-        passwordError: '',
-        genderError: '',
+        email: '',
+        name: '',
+        password: '',
+        image: ''
     };
 
     const [formInputs, setFormInputs] = useState(defaultFormFields);
@@ -33,15 +33,66 @@ function RegisterPage() {
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        const image = e.target.form[8].files[0];
+        const image = e.target.form[3].files[0];
 
-        try {
-            const { user } = await createUserEmailPasswordMethod(formInputs.email, formInputs.password);
+        const validationErrors = {};
 
-            await addImageToStorage(image, formInputs.name, user);
-            navigate('/');
+        if(!formInputs.name.trim()) {
+            validationErrors.name = 'Name is required';
         }
-        catch(err) {}
+
+        if(!formInputs.email.trim()) {
+            validationErrors.email = 'Email is required';
+        }
+        else if(!validateEmail(formInputs.email.trim())) {
+            validationErrors.email = 'Email is badly formatted';
+        }
+
+        if(!formInputs.password.trim()) {
+            validationErrors.password = 'Password is required';
+        }
+        else if(!validatePassword(formInputs.password.trim())) {
+            validationErrors.password = 'Must contain at least one number, one uppercase, lowercase character and at least 8 or more characters';
+        }
+
+        if(image === null || image === undefined) {
+            console.log(image);
+            validationErrors.image = '*No file selected';
+        }
+        else if(image.size > 1000000) {
+            validationErrors.image = '*Please select a file less than 1MB';
+        }
+
+        if(Object.keys(validationErrors).length > 0) {
+            setFormErrors(validationErrors);
+            return;
+        }
+
+        if(Object.keys(validationErrors).length === 0) {
+            setFormErrors(defaultFormErrors);
+
+            try {
+                const { user } = await createUserEmailPasswordMethod(formInputs.email, formInputs.password);
+
+                await addImageToStorage(image, formInputs.name, user);
+            }
+            catch(err) {
+                if(err.code === 'auth/email-already-in-use') {
+                    validationErrors.email = 'Email already in use!';
+                    setFormErrors(validationErrors);
+                    return;
+                }
+            }
+        }
+    }
+
+    const googleSignInHandler = async () => {
+        const { user } = await googlePopupSignIn()
+        .catch((error) => {
+            alert(error.message);
+        });
+
+        await createUserDoc(user, user.displayName, user.photoURL);
     }
 
     const goToLogin = () => {
@@ -58,7 +109,7 @@ function RegisterPage() {
 
                     <h1>Sign up for free to start chatting.</h1>
 
-                    <button type='button' className='signup-button google'>
+                    <button type='button' className='signup-button google' onClick={googleSignInHandler}>
                         <div className="button-icon">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png" alt="logo" />
                         </div>
@@ -76,7 +127,7 @@ function RegisterPage() {
                     <FormInput 
                         labelText="What's your email?" 
                         inputType='text' 
-                        errorText={formErrors.emailError} 
+                        errorText={formErrors.email} 
                         inputOptions={{
                             placeholder: 'Enter your email.',
                             type: 'email',
@@ -90,7 +141,7 @@ function RegisterPage() {
                     <FormInput 
                         labelText='Create a password' 
                         inputType='text' 
-                        errorText={formErrors.passwordError} 
+                        errorText={formErrors.password} 
                         inputOptions={{
                             placeholder: 'Create a password.',
                             type: 'password',
@@ -104,7 +155,7 @@ function RegisterPage() {
                     <FormInput 
                         labelText='What should we call you?' 
                         inputType='text' 
-                        errorText={formErrors.nameError} 
+                        errorText={formErrors.name} 
                         inputOptions={{
                             placeholder: 'Enter a profile name.',
                             type: 'text',
@@ -116,33 +167,13 @@ function RegisterPage() {
                     />
 
                     <FormInput 
-                        labelText="What's your gender?" 
-                        inputType='radio' 
-                        errorText={formErrors.genderError} 
-                        inputOptions={{
-                            required: true,
-                            type: 'radio',
-                            name: 'gender',
-                            value1: 'Male',
-                            value2: 'Female',
-                            value3: 'Non-binary',
-                            value4: 'Other',
-                            value5: 'Prefer not to say',
-                            onChange: changeHandler,
-                            checked: formInputs.gender
-                        }}
-                    />
-
-                    <FormInput 
                         labelText='Add a profile photo' 
                         inputType='image' 
-                        errorText={formErrors.imageURLError} 
+                        errorText={formErrors.image} 
                         inputOptions={{
                             type: 'file',
                             id: 'image',
                             name: 'image',
-                            // onChange: imageChangeHandler,
-                            // value: image
                         }}
                     />
 

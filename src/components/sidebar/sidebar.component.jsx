@@ -3,14 +3,24 @@ import './sidebar.style.scss';
 import ContactBar from '../contact-bar/contact-bar.component';
 import SidebarFooter from '../sidebar-footer/sidebar-footer.component';
 import { StyleContext } from '../../context/style-context';
+import { signOutUser } from '../../lib/utils/firebase.utils';
+import { UserContext } from '../../context/user-context';
 
 function Sidebar() {
     const { darkMode } = useContext(StyleContext);
+    const { setCurrentUser } = useContext(UserContext);
+
+    const logUserOut = () => {
+        signOutUser();
+        setCurrentUser(null);
+    }
 
     return (
         <div className={`sidebar${darkMode ? ' dark-mode' : ''}`}>
             <div className="sidebar-header">
                 <h1>Chats</h1>
+
+                <button onClick={logUserOut}>Logout</button>
             </div>
 
             <div className="sidebar-search">
