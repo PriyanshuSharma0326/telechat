@@ -5,13 +5,21 @@ export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(()=> {
         const unsubscribe = authStateChangeListener((user) => {
             if(user?.reloadUserInfo.providerUserInfo[0].providerId === 'password') {
-                setTimeout(() => {
+                if(user?.photoURL) {
                     setCurrentUser(user);
-                }, 5000);
+                }
+                else {
+                    setLoading(true);
+                    setTimeout(() => {
+                        setCurrentUser(user);
+                        setLoading(false);
+                    }, 5000);
+                }
             }
             else {
                 setCurrentUser(user);
@@ -24,6 +32,7 @@ export const UserContextProvider = ({ children }) => {
     const contextValue = {
         currentUser,
         setCurrentUser,
+        loading,
     };
 
     return (

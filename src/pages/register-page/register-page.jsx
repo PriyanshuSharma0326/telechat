@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './register-page.style.scss';
 import FormInput from '../../components/form-input/form-input.somponent';
 import { useNavigate } from 'react-router-dom';
 import { addImageToStorage, createUserDoc, createUserEmailPasswordMethod, googlePopupSignIn } from '../../lib/utils/firebase.utils';
 import { validateEmail, validatePassword } from '../../lib/utils/utils';
+import { UserContext } from '../../context/user-context';
+import { PropagateLoader } from 'react-spinners';
 
 function RegisterPage() {
     const navigate = useNavigate();
+
+    const { loading } = useContext(UserContext);
 
     const defaultFormFields = {
         email: '',
@@ -177,9 +181,13 @@ function RegisterPage() {
                         }}
                     />
 
+                    {!loading ? 
                     <button className='submit-button' type='submit' onClick={submitHandler}>
                         Sign up
-                    </button>
+                    </button> : 
+                    <div className="loader">
+                        <PropagateLoader color="#1DB954" />
+                    </div>}
 
                     <div className="go-to-login">
                         <h1>Have an account? <span onClick={goToLogin}>Log in</span>.</h1>
