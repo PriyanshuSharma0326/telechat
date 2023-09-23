@@ -10,7 +10,7 @@ function FormInput({ labelText, inputType, inputOptions, errorText, mode }) {
                 {labelText}
             </label>
 
-            {inputType === 'text' && <input className={`form-input ${mode === 'dark' && 'dark'}`} {...inputOptions} />}
+            {inputType === 'text' && <input className={`form-input${mode === 'dark' ? ' dark' : ''}${(errorText && !inputOptions.value) ? ' error' : ''}`} {...inputOptions} />}
 
             {inputType === 'image' && 
                 <div className="image-input-group">

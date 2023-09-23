@@ -25,6 +25,8 @@ const createUserDoc = async (user, name, imageURL) => {
 
     const userDocRef = doc(db, 'users', user.uid);
 
+    const userChatsDocRef = doc(db, 'userChats', user.uid);
+
     const userSnapshot = await getDoc(userDocRef);
 
     if(!userSnapshot.exists()) {
@@ -37,6 +39,7 @@ const createUserDoc = async (user, name, imageURL) => {
                 email,
                 photoURL: imageURL,
             });
+            await setDoc(userChatsDocRef, {});
         }
         catch(err) {
             console.log(err);
@@ -90,7 +93,6 @@ const addImageToStorage = async (file, clientName, user) => {
                     photoURL: downloadURL,
                 });
                 await createUserDoc(user, clientName, downloadURL);
-                // await setDoc(doc(db, "userChats", uid), {});
             }
             catch (err) {
                 console.log(err);
@@ -100,7 +102,7 @@ const addImageToStorage = async (file, clientName, user) => {
 }
 
 // Method to Get Data from collections
-const getDataFromCollections = async () => {
+const getUsersFromCollections = async () => {
     const collectionRef = collection(db, 'users');
 
     const querySnapshot = await getDocs(collectionRef);
@@ -121,5 +123,5 @@ export {
     authStateChangeListener,
 
     addImageToStorage,
-    getDataFromCollections,
+    getUsersFromCollections,
 };

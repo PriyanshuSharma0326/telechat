@@ -48,6 +48,14 @@
                 outline: 2px solid var(--white);
             }
         }
+
+        &.error {
+            border: 1px solid var(--red);
+
+            &:focus {
+                outline: 2px solid var(--red);
+            }
+        }
     }
 
     .image-input-group{

@@ -4,13 +4,13 @@ import FormInput from '../../components/form-input/form-input.somponent';
 import { useNavigate } from 'react-router-dom';
 import { addImageToStorage, createUserDoc, createUserEmailPasswordMethod, googlePopupSignIn } from '../../lib/utils/firebase.utils';
 import { validateEmail, validatePassword } from '../../lib/utils/utils';
-import { UserContext } from '../../context/user-context';
+import { StyleContext } from '../../context/style-context';
 import { PropagateLoader } from 'react-spinners';
 
 function RegisterPage() {
     const navigate = useNavigate();
 
-    const { loading } = useContext(UserContext);
+    const { loading } = useContext(StyleContext);
 
     const defaultFormFields = {
         email: '',
