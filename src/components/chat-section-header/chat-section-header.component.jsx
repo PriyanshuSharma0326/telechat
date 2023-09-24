@@ -7,21 +7,21 @@ import DuoIcon from '@mui/icons-material/Duo';
 import InfoIcon from '@mui/icons-material/Info';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { StyleContext } from '../../context/style-context';
-import { UserContext } from '../../context/user-context';
+import { ChatContext } from '../../context/chat-context';
 
 function ChatSectionHeader() {
     const { darkMode } = useContext(StyleContext);
-    const { currentUser } = useContext(UserContext);
+    const { selectedChat } = useContext(ChatContext);
 
     return (
         <div className={`chat-section-header ${darkMode && 'dark-mode'}`}>
             <div className="user">
                 <div className="user-image">
-                    <img src={currentUser?.photoURL} alt={currentUser?.displayName} loading='lazy' />
+                    <img src={selectedChat?.userInfo.photoURL} alt={selectedChat?.userInfo.displayName} loading='lazy' />
                 </div>
 
                 <div className="user-name">
-                    <h1>{currentUser?.displayName}</h1>
+                    <h1>{selectedChat?.userInfo.displayName}</h1>
                 </div>
             </div>
 

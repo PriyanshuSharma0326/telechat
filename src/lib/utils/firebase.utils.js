@@ -1,11 +1,15 @@
 import { auth, db, provider, storage } from "../config/firebase";
 
 import { 
+    Timestamp,
+    arrayUnion,
     collection,
     doc,
     getDoc,
     getDocs,
+    serverTimestamp,
     setDoc,
+    updateDoc,
 } from 'firebase/firestore';
 
 import { 
@@ -18,6 +22,8 @@ import {
 } from 'firebase/auth';
 
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+
+import { v4 as uuidv4 } from 'uuid';
 
 // Method to Create User Doc to collections
 const createUserDoc = async (user, name, imageURL) => {
@@ -114,6 +120,62 @@ const getUsersFromCollections = async () => {
     return data;
 }
 
+const selectUserAndAddToChats = async (currentUser, user) => {
+    const combinedID = currentUser.uid > user.uid ? 
+        currentUser.uid + user.uid : 
+        user.uid + currentUser.uid;
+
+    try {
+        const res = await getDoc(doc(db, 'chats', combinedID));
+
+        if(!res.exists()) {
+            await setDoc(doc(db, 'chats', combinedID), {
+                messages: []
+            });
+
+            await updateDoc(doc(db, 'userChats', currentUser.uid), {
+                [combinedID + '.userInfo'] : {
+                    uid: user.uid,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL
+                },
+                [combinedID + '.date'] : serverTimestamp()
+            })
+
+            await updateDoc(doc(db, 'userChats', user.uid), {
+                [combinedID + '.userInfo'] : {
+                    uid: currentUser.uid,
+                    displayName: currentUser.displayName,
+                    photoURL: currentUser.photoURL
+                },
+                [combinedID + '.date'] : serverTimestamp()
+            })
+        }
+    }
+    catch(err) {
+        alert(err);
+    }
+}
+
+const addMessageToCollections = async (selectedChat, currentUser, messageText) => {
+    const chatMessagesDocRef = doc(db, 'chats', selectedChat.chatID);
+    const chatContactsRef = doc(db, "userChats", currentUser?.uid);
+
+    await updateDoc(chatMessagesDocRef, {
+        messages: arrayUnion({
+            id: uuidv4(),
+            messageText,
+            senderID: currentUser.uid,
+            date: Timestamp.now(),
+        })
+    })
+
+    await updateDoc(chatContactsRef, {
+        [selectedChat.chatID + '.lastMessage']: messageText,
+        [selectedChat.chatID + '.date']: serverTimestamp(),
+    })
+}
+
 export {
     googlePopupSignIn,
     createUserDoc,
@@ -124,4 +186,6 @@ export {
 
     addImageToStorage,
     getUsersFromCollections,
+    selectUserAndAddToChats,
+    addMessageToCollections,
 };

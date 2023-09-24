@@ -10,7 +10,7 @@ import { ChatContext } from '../../context/chat-context';
 function Sidebar() {
     const { darkMode } = useContext(StyleContext);
     const { currentUser, setCurrentUser, users } = useContext(UserContext);
-    const { userChatsWith } = useContext(ChatContext);
+    const { userChatsWith, setSelectedChat, setChatMessages } = useContext(ChatContext);
 
     const [usernameInput, setUsernameInput] = useState('');
     const [searchedUsers, setSearchedUsers] = useState([]);
@@ -43,6 +43,11 @@ function Sidebar() {
     const logUserOut = () => {
         signOutUser();
         setCurrentUser(null);
+        setSelectedChat({
+            chatID: '',
+            userInfo: {},
+        });
+        setChatMessages([]);
     }
 
     return (
@@ -72,12 +77,21 @@ function Sidebar() {
                     {searchedUsers.length !== 0 ? 
                     (
                         searchedUsers.map((user) => (
-                            <ContactBar key={user.uid} user={user} />
+                            <ContactBar 
+                                key={user.uid} 
+                                user={user} 
+                                searched={true} 
+                            />
                         ))
                     ) : 
                     (
                         userChatsWith.map((user) => (
-                            <ContactBar key={user[0]} user={user[1].userInfo} />
+                            <ContactBar 
+                                key={user[0]} 
+                                user={user[1].userInfo} 
+                                last={user[1].lastMessage} 
+                                searched={false} 
+                            />
                         ))
                     )
                     }

@@ -1,19 +1,27 @@
 import React, { useContext } from 'react';
 import './message.style.scss';
 import { StyleContext } from '../../context/style-context';
+import { UserContext } from '../../context/user-context';
+import { ChatContext } from '../../context/chat-context';
 
-function Message({ messageText }) {
+function Message({ message }) {
     const { darkMode } = useContext(StyleContext);
+    const { currentUser } = useContext(UserContext);
+    const { selectedChat } = useContext(ChatContext);
 
     return (
-        <div className={`message-container${darkMode ? ' dark-mode' : ''}`}>
+        <div className={`message-container${darkMode ? ' dark-mode' : ''}${message.senderID === currentUser.uid ? ' owner' : ''}`}>
             <div className="message-text">
-                <p>{messageText}</p>
+                {/* {messageImageURL && <div className="message-media-container">
+                    <img src={message.messageImageURL} alt="" />
+                </div>} */}
+    
+                {message.messageText && <p>{message.messageText}</p>}
             </div>
 
             <div className="user-image">
-                    <img src="https://img.fcbayern.com/image/upload/t_cms-1x1-seo/v1691827799/cms/public/images/fcbayern-com/players/spielerportraits/ganzkoerper/harry-kane.png" alt="" />
-                </div>
+                <img src={message.senderID === currentUser.uid ? currentUser.photoURL : selectedChat.userInfo.photoURL} alt="" />
+            </div>
         </div>
     )
 }

@@ -1,53 +1,34 @@
 import React, { useContext } from 'react';
 import './contact-bar.style.scss';
 import { StyleContext } from '../../context/style-context';
-import { db } from '../../lib/config/firebase';
-import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 import { UserContext } from '../../context/user-context';
+import { ChatContext } from '../../context/chat-context';
+import { selectUserAndAddToChats } from '../../lib/utils/firebase.utils';
 
-function ContactBar({ user }) {
+function ContactBar({ user, searched, last }) {
     const { darkMode } = useContext(StyleContext);
     const { currentUser } = useContext(UserContext);
+    const { selectedChat, setSelectedChat } = useContext(ChatContext);
 
-    // const user = null;
+    // Selection of Searched Results
+    const handleSelectSearchedUser = async () => {
+        await selectUserAndAddToChats(currentUser, user);
+    }
 
-    const handleSelect = async () => {
+    // Selection of User Contacts
+    const handleSelectUserContact = () => {
         const combinedID = currentUser.uid > user.uid ? 
         currentUser.uid + user.uid : 
         user.uid + currentUser.uid;
 
-        try {
-            const res = await getDoc(doc(db, 'chats', combinedID));
-
-            if(!res.exists()) {
-                await setDoc(doc(db, 'chats', combinedID), {
-                    messages: []
-                });
-
-                await updateDoc(doc(db, 'userChats', currentUser.uid), {
-                    [combinedID + '.userInfo'] : {
-                        uid: user.uid,
-                        displayName: user.displayName,
-                        photoURL: user.photoURL
-                    },
-                    [combinedID + '.date'] : serverTimestamp()
-                })
-
-                await updateDoc(doc(db, 'userChats', user.uid), {
-                    [combinedID + '.userInfo'] : {
-                        uid: currentUser.uid,
-                        displayName: currentUser.displayName,
-                        photoURL: currentUser.photoURL
-                    },
-                    [combinedID + '.date'] : serverTimestamp()
-                })
-            }
-        }
-        catch(err) {}
+        setSelectedChat({ chatID: combinedID, userInfo: user })
     }
 
     return (
-        <div className={`contact-bar ${darkMode && 'dark-mode'}`} onClick={handleSelect}>
+        <div 
+            className={`contact-bar${darkMode ? ' dark-mode' : ''}${selectedChat.userInfo.uid === user.uid ? ' selected-contact' : ''}`} 
+            onClick={searched ? handleSelectSearchedUser : handleSelectUserContact}
+        >
             <div className="user-info">
                 <div className="user-image">
                     <img src={user.photoURL} alt={user.displayName} loading='lazy' />
@@ -55,11 +36,9 @@ function ContactBar({ user }) {
 
                 <div className="contact-text">
                     <h1 className="user-name">{user.displayName}</h1>
-                    <p className="last-message">What's up?</p>
+                    <p className="last-message">{last}</p>
                 </div>
             </div>
-
-            {/* <div className="pending-message"></div> */}
         </div>
     )
 }

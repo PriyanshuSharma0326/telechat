@@ -4,17 +4,19 @@ import ChatSectionHeader from '../chat-section-header/chat-section-header.compon
 import MessageInputContainer from '../message-input-container/message-input-container.component';
 import { StyleContext } from '../../context/style-context';
 import MessagesContainer from '../messages-container/messages-container.component';
+import { ChatContext } from '../../context/chat-context';
 
 function ChatContainer() {
     const { darkMode } = useContext(StyleContext);
+    const { selectedChat } = useContext(ChatContext);
 
     return (
         <div className={`chat-container${darkMode ? ' dark-mode' : ''}`}>
-            <ChatSectionHeader />
+            {selectedChat.chatID.length ? <ChatSectionHeader /> : <></>}
 
             <MessagesContainer />
 
-            <MessageInputContainer />
+            {selectedChat.chatID.length ? <MessageInputContainer /> : <></>}
         </div>
     )
 }
