@@ -176,6 +176,37 @@ const addMessageToCollections = async (selectedChat, currentUser, messageText) =
     })
 }
 
+const addMessageWithImageToCollections = async (selectedChat, currentUser, messageText, messageImage) => {
+    const storageRef = ref(storage, uuidv4());
+    const chatMessagesDocRef = doc(db, 'chats', selectedChat.chatID);
+    const chatContactsRef = doc(db, "userChats", currentUser?.uid);
+
+    await uploadBytesResumable(storageRef, messageImage)
+    .then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+            try {
+                await updateDoc(chatMessagesDocRef, {
+                    messages: arrayUnion({
+                        id: uuidv4(),
+                        messageText,
+                        senderID: currentUser.uid,
+                        date: Timestamp.now(),
+                        messageImageURL: downloadURL,
+                    })
+                })
+            }
+            catch (err) {
+                console.log(err);
+            }
+        });
+    });
+
+    await updateDoc(chatContactsRef, {
+        [selectedChat.chatID + '.lastMessage']: messageText,
+        [selectedChat.chatID + '.date']: serverTimestamp(),
+    })
+}
+
 export {
     googlePopupSignIn,
     createUserDoc,
@@ -188,4 +219,5 @@ export {
     getUsersFromCollections,
     selectUserAndAddToChats,
     addMessageToCollections,
+    addMessageWithImageToCollections,
 };

@@ -12,9 +12,9 @@ function Message({ message }) {
     return (
         <div className={`message-container${darkMode ? ' dark-mode' : ''}${message.senderID === currentUser.uid ? ' owner' : ''}`}>
             <div className="message-text">
-                {/* {messageImageURL && <div className="message-media-container">
+                {message.messageImageURL && <div className="message-media-container">
                     <img src={message.messageImageURL} alt="" />
-                </div>} */}
+                </div>}
     
                 {message.messageText && <p>{message.messageText}</p>}
             </div>

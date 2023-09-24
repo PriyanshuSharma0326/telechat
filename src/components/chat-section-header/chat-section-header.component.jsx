@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import './chat-section-header.style.scss';
-
 import SearchIcon from '@mui/icons-material/Search';
 import CallIcon from '@mui/icons-material/Call';
 import DuoIcon from '@mui/icons-material/Duo';
@@ -8,6 +7,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { StyleContext } from '../../context/style-context';
 import { ChatContext } from '../../context/chat-context';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function ChatSectionHeader() {
     const { darkMode } = useContext(StyleContext);
@@ -16,9 +16,14 @@ function ChatSectionHeader() {
     return (
         <div className={`chat-section-header ${darkMode && 'dark-mode'}`}>
             <div className="user">
-                <div className="user-image">
-                    <img src={selectedChat?.userInfo.photoURL} alt={selectedChat?.userInfo.displayName} loading='lazy' />
-                </div>
+                {selectedChat?.userInfo.photoURL ? 
+                    <div className="user-image">
+                        <img src={selectedChat?.userInfo.photoURL} alt={selectedChat?.userInfo.displayName} loading='lazy' />
+                    </div> :
+                    <div className="account-icon">
+                        <AccountCircleIcon />
+                    </div>
+                }
 
                 <div className="user-name">
                     <h1>{selectedChat?.userInfo.displayName}</h1>

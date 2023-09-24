@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { StyleContext } from '../../context/style-context';
 import { ChatContext } from '../../context/chat-context';
 import { UserContext } from '../../context/user-context';
-import { addMessageToCollections } from '../../lib/utils/firebase.utils';
+import { addMessageToCollections, addMessageWithImageToCollections } from '../../lib/utils/firebase.utils';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
@@ -23,18 +23,44 @@ function MessageInputContainer() {
 
     const handleSend = async () => {
         if(messageText.length) {
-            await addMessageToCollections(selectedChat, currentUser, messageText);
+            if(messageImage) {
+                await addMessageWithImageToCollections(selectedChat, currentUser, messageText, messageImage);
+            }
+            else {
+                await addMessageToCollections(selectedChat, currentUser, messageText);
+            }
+        }
+        else {
+            if(messageImage) {
+                await addMessageWithImageToCollections(selectedChat, currentUser, messageText, messageImage);
+            }
         }
         setMessageText('');
+        setMessageImage('');
     }
 
     const handleEnter = async (e) => {
         if(e.key === 'Enter') {
             if(messageText.length) {
-                await addMessageToCollections(selectedChat, currentUser, messageText);
+                if(messageImage) {
+                    await addMessageWithImageToCollections(selectedChat, currentUser, messageText, messageImage);
+                }
+                else {
+                    await addMessageToCollections(selectedChat, currentUser, messageText);
+                }
+            }
+            else {
+                if(messageImage) {
+                    await addMessageWithImageToCollections(selectedChat, currentUser, messageText, messageImage);
+                }
             }
             setMessageText('');
+            setMessageImage('');
         }
+    }
+
+    const setInputImage = (e) => {
+        setMessageImage(e.target.files[0]);
     }
 
     return (
@@ -49,8 +75,11 @@ function MessageInputContainer() {
                 />
 
                 {!messageImage ? 
-                    <div className="attach-file-icon">
-                        <AttachFileIcon />
+                    <div className="image-input-group">
+                        <label className="attach-file-icon" htmlFor='message-image'>
+                            <AttachFileIcon />
+                        </label>
+                        <input type='file' id='message-image' onChange={setInputImage} />
                     </div> :
                     <div className="check-circle-icon">
                         <CheckCircleIcon />
