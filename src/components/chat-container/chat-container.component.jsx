@@ -12,11 +12,11 @@ function ChatContainer() {
 
     return (
         <div className={`chat-container${darkMode ? ' dark-mode' : ''}`}>
-            {selectedChat.chatID.length ? <ChatSectionHeader /> : <></>}
+            {selectedChat.chatID?.length ? <ChatSectionHeader /> : <></>}
 
             <MessagesContainer />
 
-            {selectedChat.chatID.length ? <MessageInputContainer /> : <></>}
+            {selectedChat.chatID?.length ? <MessageInputContainer /> : <></>}
         </div>
     )
 }

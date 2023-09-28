@@ -18,7 +18,7 @@ function ChatSectionHeader() {
             <div className="user">
                 {selectedChat?.userInfo.photoURL ? 
                     <div className="user-image">
-                        <img src={selectedChat?.userInfo.photoURL} alt={selectedChat?.userInfo.displayName} loading='lazy' />
+                        <img src={selectedChat?.userInfo.photoURL} alt={selectedChat?.userInfo.displayName} />
                     </div> :
                     <div className="account-icon">
                         <AccountCircleIcon />

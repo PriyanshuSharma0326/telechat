@@ -23,7 +23,7 @@ export const ChatContextProvider =({ children }) => {
 
             const unsub = onSnapshot(chatContactsRef, (doc) => {
                 if(doc) {
-                    setUserChatsWith(Object.entries(doc?.data()).sort((a, b) => b[1].lastMessage - a[1].lastMessage));
+                    setUserChatsWith(Object.entries(doc?.data()).sort((a, b) => b[1].date - a[1].date));
                 }
             });
 
@@ -35,6 +35,7 @@ export const ChatContextProvider =({ children }) => {
     }, [currentUser?.uid]);
 
     useEffect(() => {
+        // console.log(selectedChat.chatID);
         const getChatMessages = async () => {
             const chatMessagesRef = doc(db, "chats", selectedChat.chatID);
 
@@ -42,7 +43,9 @@ export const ChatContextProvider =({ children }) => {
                 setChatMessages(doc.data().messages.sort((a, b) => b.date - a.date));
             });
 
-            return unsub;
+            return () => {
+                unsub();
+            };
         }
 
         selectedChat.chatID && getChatMessages();
@@ -53,7 +56,6 @@ export const ChatContextProvider =({ children }) => {
         selectedChat,
         setSelectedChat,
         chatMessages,
-        setChatMessages,
     };
 
     return (

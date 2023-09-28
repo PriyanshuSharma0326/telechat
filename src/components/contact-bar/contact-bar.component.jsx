@@ -4,35 +4,42 @@ import { StyleContext } from '../../context/style-context';
 import { UserContext } from '../../context/user-context';
 import { ChatContext } from '../../context/chat-context';
 import { selectUserAndAddToChats } from '../../lib/utils/firebase.utils';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function ContactBar({ user, searched, last }) {
     const { darkMode } = useContext(StyleContext);
     const { currentUser } = useContext(UserContext);
     const { selectedChat, setSelectedChat } = useContext(ChatContext);
 
+    const combinedID = currentUser.uid > user.uid ? 
+        currentUser.uid + user.uid : 
+        user.uid + currentUser.uid;
+
     // Selection of Searched Results
     const handleSelectSearchedUser = async () => {
         await selectUserAndAddToChats(currentUser, user);
+        setSelectedChat({ chatID: combinedID, userInfo: user })
     }
 
     // Selection of User Contacts
     const handleSelectUserContact = () => {
-        const combinedID = currentUser.uid > user.uid ? 
-        currentUser.uid + user.uid : 
-        user.uid + currentUser.uid;
-
-        setSelectedChat({ chatID: combinedID, userInfo: user })
+        setSelectedChat({ chatID: combinedID, userInfo: user });
     }
 
     return (
         <div 
-            className={`contact-bar${darkMode ? ' dark-mode' : ''}${selectedChat.userInfo.uid === user.uid ? ' selected-contact' : ''}`} 
+            className={`contact-bar${darkMode ? ' dark-mode' : ''}${selectedChat.userInfo?.uid === user.uid ? ' selected-contact' : ''}`} 
             onClick={searched ? handleSelectSearchedUser : handleSelectUserContact}
         >
             <div className="user-info">
-                <div className="user-image">
-                    <img src={user.photoURL} alt={user.displayName} loading='lazy' />
-                </div>
+                {user.photoURL ? 
+                    <div className="user-image">
+                        <img src={user.photoURL} alt={user.displayName} loading='lazy' />
+                    </div> :
+                    <div className="account-icon">
+                        <AccountCircleIcon />
+                    </div>
+                }
 
                 <div className="contact-text">
                     <h1 className="user-name">{user.displayName}</h1>

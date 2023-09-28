@@ -35,7 +35,7 @@ function Sidebar() {
     }
 
     useEffect(() => {
-        if(!usernameInput) {
+        if(!usernameInput.length) {
             setSearchedUsers([]);
         }
     }, [usernameInput]);
