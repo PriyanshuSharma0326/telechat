@@ -154,4 +154,75 @@
             }
         }
     }
+
+    @media screen and (max-width: 1024px) {
+        .header {
+            padding: 1.65rem 2.75rem;
+        }
+
+        .login-page-main {
+            width: 40rem;
+    
+            .login-options {
+                gap: 1rem;
+                margin-top: 2.25rem;
+                width: 50%;
+        
+                h1 {
+                    padding: 0.8rem 0;
+                    font-size: 2.4rem;
+                }
+            }
+    
+            .divider {
+                width: 72%;
+                margin: 1.75rem 0;
+            }
+    
+            .login-form {
+                width: 50%;
+                gap: 1.25rem;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        height: 100vh;
+
+        .login-page-main {
+            margin-top: 4rem;
+        }
+    }
+
+    @media screen and (max-width: 426px) {
+        .header {
+            padding: 1.5rem 2.25rem;
+        }
+
+        .login-page-main {
+            width: 90%;
+            margin-top: 2rem;
+    
+            .login-options {
+                gap: 1.25rem;
+                margin-top: 2rem;
+                width: 75%;
+        
+                h1 {
+                    padding: 1rem 0;
+                    font-size: 2.1rem;
+                }
+            }
+    
+            .divider {
+                width: 85%;
+                margin: 1.75rem 0;
+            }
+    
+            .login-form {
+                width: 75%;
+                gap: 1.15rem;
+            }
+        }
+    }
 }

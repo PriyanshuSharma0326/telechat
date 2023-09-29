@@ -156,4 +156,26 @@
             }
         }
     }
+
+    @media screen and (max-width: 1440px) {
+        .register-page-main {    
+            .signup-form {
+                gap: 1.25rem;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        height: 100vh;
+    }
+
+    @media screen and (max-width: 426px) {
+        .register-page-main {
+            width: 90%;
+    
+            .signup-form {
+                padding-bottom: 6rem;
+            }
+        }
+    }
 }
