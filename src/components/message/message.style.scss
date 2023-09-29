@@ -129,4 +129,27 @@
             height: 1.75rem;
         }
     }
+
+    @media screen and (max-width: 426px) {
+        max-width: 65%;
+
+        .message-text {
+            padding: 0.85rem;
+            padding-right: 2.45rem;
+    
+            p {
+                font-size: 0.9rem;
+                line-height: 1.2rem;
+            }
+    
+            .timestamp {
+                font-size: 0.65rem;
+            }
+        }
+
+        .user-image {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
 }

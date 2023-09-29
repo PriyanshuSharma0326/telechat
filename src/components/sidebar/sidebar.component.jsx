@@ -8,6 +8,9 @@ import { UserContext } from '../../context/user-context';
 import { ChatContext } from '../../context/chat-context';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+
 function Sidebar() {
     const { darkMode } = useContext(StyleContext);
     const { currentUser, setCurrentUser, users } = useContext(UserContext);
@@ -51,8 +54,28 @@ function Sidebar() {
         setChatMessages([]);
     }
 
+    const [leftValue, setLeftValue] = useState(0);
+
+    const handleSidebar = () => {
+        let val;
+        if(leftValue < 0) {
+            setLeftValue(0)
+        }
+        else {
+            val = window.innerWidth > 426 ? -40 : -70;
+            setLeftValue(val);
+        }
+    }
+
     return (
-        <div className={`sidebar${darkMode ? ' dark-mode' : ''}`}>
+        <div 
+            className={`sidebar${darkMode ? ' dark-mode' : ''}`} 
+            style={{ 
+                left: `${leftValue}%`, 
+                boxShadow: leftValue === 0 ? '1px 0 36px rgba(0, 0, 0, 0.1)' : 'none', 
+                opacity: leftValue !== 0 ? '0.7' : '1' 
+            }}
+        >
             <div className="sidebar-header">
                 <h1>Chats</h1>
 
@@ -101,6 +124,11 @@ function Sidebar() {
                 </div>
 
                 <SidebarFooter />
+            </div>
+
+            <div className="slide-in-out-button" onClick={handleSidebar}>
+                {leftValue < 0 ? <ArrowRightIcon /> :
+                <ArrowLeftIcon />}
             </div>
         </div>
     )

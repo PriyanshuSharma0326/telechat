@@ -116,27 +116,29 @@
     }
 
     @media screen and (max-width: 1024px) {
-        padding: 0.8rem 1.15rem;
+        padding: 0.65rem 1.15rem;
 
         .input-container {
             width: calc(100% - 4rem);
     
             > input {
-                width: calc(100% - 4rem);
-                padding: 1rem 1.25rem;
+                width: calc(100% - 3.5rem);
+                padding: 0.85rem 1.25rem;
                 font-size: 0.9rem;
             }
     
             .image-input-group {
                 .attach-file-icon {
-                    width: 1.75rem;
-                    height: 1.75rem;
+                    width: 1.25rem;
+                    height: 1.25rem;
+                    margin-left: 1.25rem;
                 }
             }
     
             .check-circle-icon {
-                width: 1.75rem;
-                height: 1.75rem;
+                width: 1.25rem;
+                height: 1.25rem;
+                margin-left: 1.25rem;
             }
         }
 
@@ -146,6 +148,18 @@
     
             .MuiSvgIcon-root {
                 font-size: 1.15rem;
+            }
+        }
+    }
+
+    @media screen and (max-width: 426px) {
+        padding: 0.85rem 1.25rem;
+
+        .input-container {
+            width: calc(100% - 4rem);
+    
+            > input {
+                font-size: 1rem;
             }
         }
     }

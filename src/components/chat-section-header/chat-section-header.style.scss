@@ -133,4 +133,48 @@
             }
         }
     }
+
+    @media screen and (max-width: 426px) {
+        padding: 1rem 1.25rem;
+
+        .user {
+            .user-image {
+                width: 2.75rem;
+                height: 2.75rem;
+    
+                .MuiSvgIcon-root {
+                    font-size: 1.35rem;
+                }
+            }
+    
+            .account-icon {
+                width: 2.75rem;
+                height: 2.75rem;
+    
+                .MuiSvgIcon-root {
+                    font-size: 3.3rem;
+                }
+            }
+    
+            .user-name {
+                h1 {
+                    font-size: 1.15rem;
+                }
+            }
+        }
+
+        .header-icons {
+            .icon {
+                display: none;
+
+                .MuiSvgIcon-root {
+                    font-size: 1.5rem;
+                }
+
+                &:last-of-type {
+                    display: flex;
+                }
+            }
+        }
+    }
 }
