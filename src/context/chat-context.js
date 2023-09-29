@@ -18,7 +18,7 @@ export const ChatContextProvider =({ children }) => {
     const [chatMessages, setChatMessages] = useState([]);
 
     useEffect(() => {
-        const getChatContacts = async () => {
+        const getChatContacts = () => {
             const chatContactsRef = doc(db, "userChats", currentUser?.uid);
 
             const unsub = onSnapshot(chatContactsRef, (doc) => {
@@ -35,21 +35,32 @@ export const ChatContextProvider =({ children }) => {
     }, [currentUser?.uid]);
 
     useEffect(() => {
-        // console.log(selectedChat.chatID);
-        const getChatMessages = async () => {
+        // Define the onSnapshot listener and unsub function outside of the condition.
+        let unsub = null;
+    
+        const getChatMessages = () => {
+            if (!selectedChat.chatID) {
+                return;
+            }
+    
             const chatMessagesRef = doc(db, "chats", selectedChat.chatID);
-
-            const unsub = onSnapshot(chatMessagesRef, (doc) => {
+    
+            // Register the listener
+            unsub = onSnapshot(chatMessagesRef, (doc) => {
                 setChatMessages(doc.data().messages.sort((a, b) => b.date - a.date));
             });
-
-            return () => {
-                unsub();
-            };
-        }
-
-        selectedChat.chatID && getChatMessages();
+        };
+    
+        getChatMessages(); // Call the function immediately.
+    
+        // Deregister the listener when the component unmounts.
+        return () => {
+            if (unsub) {
+                unsub(); // Call unsub if it's defined.
+            }
+        };
     }, [selectedChat.chatID]);
+    
 
     const contextValue = { 
         userChatsWith,
