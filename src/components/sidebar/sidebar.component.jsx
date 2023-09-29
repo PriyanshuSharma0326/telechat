@@ -6,6 +6,7 @@ import { StyleContext } from '../../context/style-context';
 import { signOutUser } from '../../lib/utils/firebase.utils';
 import { UserContext } from '../../context/user-context';
 import { ChatContext } from '../../context/chat-context';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function Sidebar() {
     const { darkMode } = useContext(StyleContext);
@@ -55,7 +56,9 @@ function Sidebar() {
             <div className="sidebar-header">
                 <h1>Chats</h1>
 
-                <button onClick={logUserOut}>Logout</button>
+                <div className="logout-button">
+                    <LogoutIcon onClick={logUserOut} />
+                </div>
             </div>
 
             <div className="sidebar-search">

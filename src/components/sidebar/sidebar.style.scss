@@ -8,12 +8,23 @@
         padding: 1rem;
         background-color: var(--green-4);
         display: flex;
+        align-items: center;
         justify-content: space-between;
 
         h1 {
             font-size: 1.25rem;
             font-weight: 500;
             color: var(--white);
+        }
+
+        .logout-button {
+            line-height: 0;
+            cursor: pointer;
+
+            .MuiSvgIcon-root {
+                font-size: 1.25rem;
+                color: var(--white);
+            }
         }
     }
 
