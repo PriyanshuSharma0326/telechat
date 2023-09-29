@@ -84,4 +84,24 @@
             }
         }
     }
+
+    @media screen and (max-width: 1440px) {
+        width: 24%;
+    }
+
+    @media screen and (max-width: 1024px) {
+        width: 27%;
+
+        .contacts-list-container {
+            .list-title {
+                h2 {
+                    font-size: 0.8rem;
+                }
+            }
+
+            .contacts-list {
+                max-height: calc(100% - 4rem - 2.05rem);
+            }
+        }
+    }
 }

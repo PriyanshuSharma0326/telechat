@@ -114,4 +114,39 @@
             box-shadow: none;
         }
     }
+
+    @media screen and (max-width: 1024px) {
+        padding: 0.8rem 1.15rem;
+
+        .input-container {
+            width: calc(100% - 4rem);
+    
+            > input {
+                width: calc(100% - 4rem);
+                padding: 1rem 1.25rem;
+                font-size: 0.9rem;
+            }
+    
+            .image-input-group {
+                .attach-file-icon {
+                    width: 1.75rem;
+                    height: 1.75rem;
+                }
+            }
+    
+            .check-circle-icon {
+                width: 1.75rem;
+                height: 1.75rem;
+            }
+        }
+
+        .send-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+    
+            .MuiSvgIcon-root {
+                font-size: 1.15rem;
+            }
+        }
+    }
 }

@@ -92,4 +92,36 @@
             background-color: var(--grey-2);
         }
     }
+
+    @media screen and (max-width: 1024px) {
+        padding: 0.75rem;
+
+        .user-info {
+            .user-image {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .account-icon {
+                width: 2.5rem;
+                height: 2.5rem;
+
+                .MuiSvgIcon-root {
+                    font-size: 3rem;
+                }
+            }
+
+            .contact-text {
+                width: calc(100% - 3.25rem);
+
+                .user-name {
+                    font-size: 0.85rem;
+                }
+
+                .last-message  {
+                    font-size: 0.75rem;
+                }
+            }
+        }
+    }
 }

@@ -15,4 +15,8 @@
     &::-webkit-scrollbar {
         display: none;
     }
+
+    @media screen and (max-width: 1024px) {
+        gap: 1.25rem;
+    }
 }

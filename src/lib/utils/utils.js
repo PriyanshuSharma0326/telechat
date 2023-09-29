@@ -12,3 +12,9 @@ export const validatePhoneNumber = (phoneNumber) => {
     const regex = /^[0-9]{10}$/;
     return regex.test(phoneNumber);
 };
+
+export const formatTime = (timestamp) => {
+    const milliseconds = timestamp.seconds * 1000 + Math.floor(timestamp.nanoseconds / 1000000);
+    const date = new Date(milliseconds);
+    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+}

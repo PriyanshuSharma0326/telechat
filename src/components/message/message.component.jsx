@@ -3,19 +3,12 @@ import './message.style.scss';
 import { StyleContext } from '../../context/style-context';
 import { UserContext } from '../../context/user-context';
 import { ChatContext } from '../../context/chat-context';
+import { formatTime } from '../../lib/utils/utils';
 
 function Message({ message }) {
     const { darkMode } = useContext(StyleContext);
     const { currentUser } = useContext(UserContext);
     const { selectedChat } = useContext(ChatContext);
-
-    const timestamp = message.date;
-
-    const milliseconds = timestamp.seconds * 1000 + Math.floor(timestamp.nanoseconds / 1000000);
-
-    const date = new Date(milliseconds);
-
-    const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 
     return (
         <div className={`message-container${darkMode ? ' dark-mode' : ''}${message.senderID === currentUser.uid ? ' owner' : ''}`}>
@@ -26,7 +19,7 @@ function Message({ message }) {
             {message.messageText && <div className="message-text">    
                 <p>{message.messageText}</p>
 
-                <h2 className='timestamp'>{formattedTime}</h2>
+                <h2 className='timestamp'>{formatTime(message.date)}</h2>
             </div>}
 
             <div className="user-image">

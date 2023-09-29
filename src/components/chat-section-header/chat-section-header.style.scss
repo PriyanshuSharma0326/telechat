@@ -91,4 +91,46 @@
             }
         }
     }
+
+    @media screen and (max-width: 1024px) {
+        padding: 0.85rem 1.15rem;
+
+        .user {
+            gap: 0.75rem;
+    
+            .user-image {
+                width: 2.5rem;
+                height: 2.5rem;
+    
+                .MuiSvgIcon-root {
+                    font-size: 1.25rem;
+                }
+            }
+    
+            .account-icon {
+                width: 2.5rem;
+                height: 2.5rem;
+    
+                .MuiSvgIcon-root {
+                    font-size: 3rem;
+                }
+            }
+    
+            .user-name {
+                h1 {
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        .header-icons {
+            gap: 2rem;
+    
+            .icon {
+                .MuiSvgIcon-root {
+                    font-size: 1.25rem;
+                }
+            }
+        }
+    }
 }
