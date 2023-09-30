@@ -67,6 +67,7 @@ export const ChatContextProvider =({ children }) => {
         selectedChat,
         setSelectedChat,
         chatMessages,
+        setChatMessages,
     };
 
     return (
