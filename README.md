@@ -1,70 +1,109 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Telechat (A Realtime Chat App)
 
-## Available Scripts
+![Site preview](./public/media/desktop-design.png)
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [About](#about)
+- [Features](#features)
+- [Contact](#contact)
+- [Social](#social)
+- [Setup](#setup)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## About
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Telechat is a real-time chat application designed to revolutionize your communication experience. Powered by Firebase, it delivers instant messaging that keeps you connected seamlessly. Whether you're chatting with friends, collaborating with colleagues, or staying in touch with loved ones, Telechat ensures lightning-fast communication with an intuitive interface.
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Realtime Chat Messaging**: Engage in instant and seamless chat conversations powered by Firebase for real-time communication.
 
-### `npm run build`
+- **User Authentication**: Users can securely log in with their email or Google accounts, ensuring a hassle-free onboarding experience.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Interactive Sidebar**: Effortlessly manage your contacts and ongoing chats with an interactive sidebar. Search for contacts and add them to your list just like Telegram.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Realtime Message Updates**: Stay updated with the latest messages in an interactive chat screen. Send and receive text messages in real-time.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Image Sharing**: Express yourself visually by sending images along with text messages. Share moments and experiences with ease.
 
-### `npm run eject`
+- **Cross-Device Compatibility**: Enjoy a consistent and responsive chat experience across various devices, ensuring you stay connected wherever you go.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **User-Friendly Design**: Navigate the app effortlessly with an intuitive and user-friendly design that enhances your chatting experience.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Contact
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Feel free to reach out to me with any inquiries, opportunities, or collaborations. You can contact me at:
 
-## Learn More
+- Email: [priyanshusharma0326@gmail.com](mailto:priyanshusharma0326@gmail.com)
+- LinkedIn: [Priyanshu Sharma](https://www.linkedin.com/in/priyanshusharma0326)
+- Portfolio: [portfolio-xtechilad.vercel.app](https://portfolio-xtechilad.vercel.app/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Social
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Connect with me on social media:
 
-### Code Splitting
+- Twitter: [@xtechilad](https://twitter.com/xtechilad)
+- Instagram: [@xtechilad](https://www.instagram.com/xtechilad)
+- GitHub: [@priyanshusharma0326](https://github.com/priyanshusharma0326)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Let's engage, share ideas, and stay connected!
 
-### Analyzing the Bundle Size
+## Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Clone the project
 
-### Making a Progressive Web App
+```bash
+  git clone https://github.com/PriyanshuSharma0326/telechat.git
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Go to the project directory
 
-### Advanced Configuration
+```bash
+  cd telechat/
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Install dependencies
+
+```bash
+  npm i react
+  npm i react-dom
+  npm i react-router-dom
+  npm i firebase
+  npm i react-scripts
+  npm i react-spinners
+  npm i uuid
+  npm i web-vitals
+```
+
+Start the server
+
+```bash
+  npm start
+```
+### Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`REACT_APP_API_KEY=YOUR_API_KEY`
+
+`REACT_APP_AUTH_DOMAIN=YOUR_AUTH_DOMAIN`
+
+`REACT_APP_PROJECT_ID=YOUR_PROJECT_ID`
+
+`REACT_APP_STORAGE_BUCKET=YOUR_STORAGE_BUCKET`
+
+`REACT_APP_SENDER_ID=YOUR_SENDER_ID`
+
+`REACT_APP_APP_ID=YOUR_APP_ID`
+
+
+### Tech Stack
+
+**Client:** React, context API, SASS, Firebase, Firebase Authentication, React Router
+
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Deploy this project on Vercel.
