@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './sidebar.style.scss';
 import ContactBar from '../contact-bar/contact-bar.component';
 import SidebarFooter from '../sidebar-footer/sidebar-footer.component';
@@ -10,14 +10,29 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import { SearchContext } from '../../context/search-context';
 
 function Sidebar() {
     const { darkMode } = useContext(StyleContext);
-    const { currentUser, setCurrentUser, users } = useContext(UserContext);
-    const { userChatsWith, setSelectedChat, setChatMessages } = useContext(ChatContext);
+    
+    const {
+        currentUser,
+        setCurrentUser,
+        users
+    } = useContext(UserContext);
+    
+    const {
+        userChatsWith,
+        setSelectedChat,
+        setChatMessages
+    } = useContext(ChatContext);
 
-    const [usernameInput, setUsernameInput] = useState('');
-    const [searchedUsers, setSearchedUsers] = useState([]);
+    const {
+        usernameInput,
+        setUsernameInput,
+        searchedUsers,
+        setSearchedUsers,
+    } = useContext(SearchContext);
 
     const handleUsernameInputChange = (e) => {
         setUsernameInput(e.target.value);
@@ -37,12 +52,6 @@ function Sidebar() {
             }
         }
     }
-
-    useEffect(() => {
-        if(!usernameInput.length) {
-            setSearchedUsers([]);
-        }
-    }, [usernameInput]);
 
     const logUserOut = () => {
         signOutUser();
@@ -72,8 +81,7 @@ function Sidebar() {
             className={`sidebar${darkMode ? ' dark-mode' : ''}`} 
             style={{ 
                 left: `${leftValue}%`, 
-                boxShadow: leftValue === 0 ? '1px 0 36px rgba(0, 0, 0, 0.1)' : 'none', 
-                opacity: leftValue !== 0 ? '0.7' : '1' 
+                boxShadow: leftValue === 0 ? '1px 0 36px rgba(0, 0, 0, 0.1)' : 'none'
             }}
         >
             <div className="sidebar-header">
@@ -126,7 +134,11 @@ function Sidebar() {
                 <SidebarFooter />
             </div>
 
-            <div className="slide-in-out-button" onClick={handleSidebar}>
+            <div className="slide-in-out-button" onClick={handleSidebar} 
+                style={{
+                    opacity: leftValue !== 0 ? '0.7' : '1' 
+                }}
+            >
                 {leftValue < 0 ? <ArrowRightIcon /> :
                 <ArrowLeftIcon />}
             </div>

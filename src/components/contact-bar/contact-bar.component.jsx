@@ -5,11 +5,13 @@ import { UserContext } from '../../context/user-context';
 import { ChatContext } from '../../context/chat-context';
 import { selectUserAndAddToChats } from '../../lib/utils/firebase.utils';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { SearchContext } from '../../context/search-context';
 
 function ContactBar({ user, searched, last }) {
     const { darkMode } = useContext(StyleContext);
     const { currentUser } = useContext(UserContext);
     const { selectedChat, setSelectedChat } = useContext(ChatContext);
+    const { setUsernameInput } = useContext(SearchContext);
 
     const combinedID = currentUser.uid > user.uid ? 
         currentUser.uid + user.uid : 
@@ -18,7 +20,11 @@ function ContactBar({ user, searched, last }) {
     // Selection of Searched Results
     const handleSelectSearchedUser = async () => {
         await selectUserAndAddToChats(currentUser, user);
-        setSelectedChat({ chatID: combinedID, userInfo: user })
+        setSelectedChat({ chatID: combinedID, userInfo: user });
+
+        setTimeout(() => {
+            setUsernameInput('');
+        }, 1000);
     }
 
     // Selection of User Contacts
