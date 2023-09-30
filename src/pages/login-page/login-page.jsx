@@ -10,13 +10,11 @@ function LoginPage() {
 
     const defaultFormFields = {
         email: '',
-        name: '',
         password: '',
     };
 
     const defaultFormErrors = {
         email: '',
-        name: '',
         password: '',
         image: ''
     };
@@ -89,6 +87,13 @@ function LoginPage() {
         navigate('/register');
     }
 
+    const fillWithSampleCredentials = () => {
+        setFormInputs({
+            email: 'user@telechat.vercel.app',
+            password: 'User1234',
+        })
+    }
+
     return (
         <div className='login-page'>
             <div className="header">
@@ -155,6 +160,12 @@ function LoginPage() {
 
                 <div className="go-to-login">
                     <h1>Don't have an account? <span onClick={goToLogin}>Sign up for Telechat</span></h1>
+                </div>
+
+                <div className="sample-id-container">
+                    <p onClick={fillWithSampleCredentials}>Sample credentials</p>
+                    <h1>Email<span>user@telechat.vercel.app</span></h1>
+                    <h1>Password<span>User1234</span></h1>
                 </div>
             </div>
         </div>
