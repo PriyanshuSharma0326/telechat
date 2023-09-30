@@ -75,6 +75,11 @@ Install dependencies
   npm i react-spinners
   npm i uuid
   npm i web-vitals
+  npm i @emotion/react
+  npm i @emotion/styled
+  npm i @mui/icons-material
+  npm i @mui/material
+  npm i -D sass
 ```
 
 Start the server
@@ -101,7 +106,7 @@ To run this project, you will need to add the following environment variables to
 
 ### Tech Stack
 
-**Client:** React, context API, SASS, Firebase, Firebase Authentication, React Router
+**Client:** React, context API, SASS, Material UI, Firebase, Firebase Authentication, React Router
 
 
 ### Deployment
