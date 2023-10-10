@@ -87,10 +87,10 @@ function LoginPage() {
         navigate('/register');
     }
 
-    const fillWithSampleCredentials = () => {
+    const fillWithSampleCredentials = (email, pass) => {
         setFormInputs({
-            email: 'user@telechat.vercel.app',
-            password: 'User1234',
+            email: email,
+            password: pass,
         })
     }
 
@@ -163,9 +163,27 @@ function LoginPage() {
                 </div>
 
                 <div className="sample-id-container">
-                    <p onClick={fillWithSampleCredentials}>Sample credentials</p>
+                    <p onClick={() => fillWithSampleCredentials('user@telechat.vercel.app', 'User1234')}>User 1 - Harry</p>
                     <h1>Email<span>user@telechat.vercel.app</span></h1>
                     <h1>Password<span>User1234</span></h1>
+                </div>
+
+                <div className="sample-id-container">
+                    <p onClick={() => fillWithSampleCredentials('viratkohli@bcci.in', 'Virat@18')}>User 2 - Virat</p>
+                    <h1>Email<span>viratkohli@bcci.in</span></h1>
+                    <h1>Password<span>Virat@18</span></h1>
+                </div>
+
+                <div className="sample-id-container">
+                    <p onClick={() => fillWithSampleCredentials('msdhoni@bcci.com', 'MSDhoni@7')}>User 3 - Dhoni</p>
+                    <h1>Email<span>msdhoni@bcci.com</span></h1>
+                    <h1>Password<span>MSDhoni@7</span></h1>
+                </div>
+
+                <div className="sample-id-container">
+                    <p onClick={() => fillWithSampleCredentials('ankit@muscleblaze.com', 'Ankit@75')}>User 4 - Ankit</p>
+                    <h1>Email<span>ankit@muscleblaze.com</span></h1>
+                    <h1>Password<span>Ankit@75</span></h1>
                 </div>
             </div>
         </div>

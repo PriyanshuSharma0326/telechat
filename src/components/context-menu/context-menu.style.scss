@@ -1,0 +1,53 @@
+.context-menu-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--grey-2);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    padding: 0.2rem;
+
+    .buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        width: 100%;
+
+        button {
+            border-radius: 0.125rem;
+            margin: 0 auto;
+            padding: 0.5rem;
+            padding-left: 2rem;
+            width: 18rem;
+            outline: none;
+            border: none;
+            color: var(--white);
+            background-color: transparent;
+            text-align: left;
+            font-size: 0.9rem;
+
+            &:hover {
+                background-color: var(--grey-3);
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    &.dark-mode {
+        background-color: var(--grey-7);
+
+        .buttons-container {
+            button {
+                color: var(--black);
+
+                &:hover {
+                    background-color: var(--grey-6);
+                }
+            }
+        }
+    }
+}

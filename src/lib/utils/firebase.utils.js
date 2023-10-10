@@ -2,6 +2,7 @@ import { auth, db, provider, storage } from "../config/firebase";
 
 import { 
     Timestamp,
+    arrayRemove,
     arrayUnion,
     collection,
     doc,
@@ -207,6 +208,38 @@ const addMessageWithImageToCollections = async (selectedChat, currentUser, messa
     })
 }
 
+const updateMessage = async (selectedChat, currentUser, selectedMessage, newMessage) => {
+    const chatMessagesDocRef = doc(db, 'chats', selectedChat.chatID);
+    const chatContactsRef = doc(db, "userChats", currentUser?.uid);
+
+    await updateDoc(chatMessagesDocRef, {
+        messages: arrayRemove(selectedMessage)
+    })
+
+    await updateDoc(chatMessagesDocRef, {
+        messages: arrayUnion(newMessage)
+    })
+
+    await updateDoc(chatContactsRef, {
+        [selectedChat.chatID + '.lastMessage']: newMessage?.messageText,
+        [selectedChat.chatID + '.date']: serverTimestamp(),
+    })
+}
+
+const deleteMessage = async (selectedChat, currentUser, message) => {
+    const chatMessagesDocRef = doc(db, 'chats', selectedChat.chatID);
+    const chatContactsRef = doc(db, "userChats", currentUser?.uid);
+
+    await updateDoc(chatMessagesDocRef, {
+        messages: arrayRemove(message)
+    })
+
+    await updateDoc(chatContactsRef, {
+        [selectedChat.chatID + '.lastMessage']: 'Deleted a message',
+        [selectedChat.chatID + '.date']: serverTimestamp(),
+    })
+}
+
 export {
     googlePopupSignIn,
     createUserDoc,
@@ -220,4 +253,6 @@ export {
     selectUserAndAddToChats,
     addMessageToCollections,
     addMessageWithImageToCollections,
+    updateMessage,
+    deleteMessage
 };

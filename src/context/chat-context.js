@@ -10,6 +10,12 @@ export const ChatContextProvider =({ children }) => {
 
     const [userChatsWith, setUserChatsWith] = useState([]);
 
+    // Updating the message
+    const [selectedMessage, setSelectedMessage] = useState({});
+    const [showContextMenu, setShowContextMenu] = useState(false);
+    const [showDeleteConfirmBox, setShowDeleteConfirmBox] = useState(false);
+    const [editing, setEditing] = useState(false);
+
     const [selectedChat, setSelectedChat] = useState({
         chatID: '',
         userInfo: {},
@@ -68,6 +74,14 @@ export const ChatContextProvider =({ children }) => {
         setSelectedChat,
         chatMessages,
         setChatMessages,
+        showContextMenu,
+        setShowContextMenu,
+        selectedMessage,
+        setSelectedMessage,
+        showDeleteConfirmBox,
+        setShowDeleteConfirmBox,
+        editing,
+        setEditing,
     };
 
     return (

@@ -40,7 +40,7 @@ function ContactBar({ user, searched, last }) {
             <div className="user-info">
                 {user.photoURL ? 
                     <div className="user-image">
-                        <img src={user.photoURL} alt={user.displayName} loading='lazy' />
+                        <img src={user.photoURL} alt={user.displayName} />
                     </div> :
                     <div className="account-icon">
                         <AccountCircleIcon />
@@ -49,7 +49,7 @@ function ContactBar({ user, searched, last }) {
 
                 <div className="contact-text">
                     <h1 className="user-name">{user.displayName}</h1>
-                    <p className="last-message">{last}</p>
+                    <p className='last-message'>You: <span className={`${last === 'Deleted a message' ? ' deleted' : ''}`}>{last}</span></p>
                 </div>
             </div>
         </div>

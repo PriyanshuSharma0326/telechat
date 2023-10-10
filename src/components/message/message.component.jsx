@@ -8,10 +8,23 @@ import { formatTime } from '../../lib/utils/utils';
 function Message({ message }) {
     const { darkMode } = useContext(StyleContext);
     const { currentUser } = useContext(UserContext);
-    const { selectedChat } = useContext(ChatContext);
+    const {
+        selectedChat,
+        showContextMenu,
+        setShowContextMenu,
+        setSelectedMessage,
+    } = useContext(ChatContext);
+
+    const alertUser = (e) => {
+        if(currentUser.uid === message.senderID) {
+            e.preventDefault();
+            setSelectedMessage(message);
+            setShowContextMenu(!showContextMenu);
+        }
+    }
 
     return (
-        <div className={`message-container${darkMode ? ' dark-mode' : ''}${message.senderID === currentUser.uid ? ' owner' : ''}`}>
+        <div onContextMenu={alertUser} className={`message-container${darkMode ? ' dark-mode' : ''}${message.senderID === currentUser.uid ? ' owner' : ''}`}>
             {message.messageImageURL && <div className="message-media-container">
                 <img src={message.messageImageURL} alt="" />
             </div>}

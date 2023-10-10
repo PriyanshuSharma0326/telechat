@@ -58,6 +58,12 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+
+                span {
+                    &.deleted {
+                        color: var(--red);
+                    }
+                }
             }
         }
     }

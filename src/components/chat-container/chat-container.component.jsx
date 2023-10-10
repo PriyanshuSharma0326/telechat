@@ -5,10 +5,12 @@ import MessageInputContainer from '../message-input-container/message-input-cont
 import { StyleContext } from '../../context/style-context';
 import MessagesContainer from '../messages-container/messages-container.component';
 import { ChatContext } from '../../context/chat-context';
+import ContextMenu from '../context-menu/context-menu.component';
+import ConfirmationBox from '../confirmation-box/confirmation-box.component';
 
 function ChatContainer() {
     const { darkMode } = useContext(StyleContext);
-    const { selectedChat } = useContext(ChatContext);
+    const { selectedChat, showContextMenu, showDeleteConfirmBox } = useContext(ChatContext);
 
     return (
         <div className={`chat-container${darkMode ? ' dark-mode' : ''}`}>
@@ -17,6 +19,10 @@ function ChatContainer() {
             <MessagesContainer />
 
             {selectedChat.chatID?.length ? <MessageInputContainer /> : <></>}
+
+            {showContextMenu && <ContextMenu />}
+
+            {showDeleteConfirmBox && <ConfirmationBox />}
         </div>
     )
 }
