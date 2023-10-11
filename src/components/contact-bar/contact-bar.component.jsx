@@ -49,7 +49,7 @@ function ContactBar({ user, searched, last }) {
 
                 <div className="contact-text">
                     <h1 className="user-name">{user.displayName}</h1>
-                    <p className='last-message'>You: <span className={`${last === 'Deleted a message' ? ' deleted' : ''}`}>{last}</span></p>
+                    {last && <p className='last-message'>You: <span className={`${last === 'Deleted a message' ? ' deleted' : ''}`}>{last}</span></p>}
                 </div>
             </div>
         </div>
