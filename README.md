@@ -1,7 +1,7 @@
 
 # Telechat (A Realtime Chat App)
 
-![Site preview](./public/media/desktop-ui.png)
+![Site preview](./public/media/desktop-siteshot.png)
 
 ## Table of Contents
 
