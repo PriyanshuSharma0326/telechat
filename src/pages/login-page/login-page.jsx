@@ -83,7 +83,7 @@ function LoginPage() {
         await createUserDoc(user, user.displayName, user.photoURL);
     }
 
-    const goToLogin = () => {
+    const goToSignup = () => {
         navigate('/register');
     }
 
@@ -96,12 +96,6 @@ function LoginPage() {
 
     return (
         <div className='login-page'>
-            <div className="header">
-                <div className="logo-container">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2885/2885504.png" alt="logo" />
-                </div>
-            </div>
-
             <div className="login-page-main">
                 <div className="login-options">
                     <h1>Log in to Telechat</h1>
@@ -158,8 +152,8 @@ function LoginPage() {
                 <div className='divider'>
                 </div>
 
-                <div className="go-to-login">
-                    <h1>Don't have an account? <span onClick={goToLogin}>Sign up for Telechat</span></h1>
+                <div className="go-to-signup">
+                    <h1>Don't have an account? <span onClick={goToSignup}>Sign up for Telechat</span></h1>
                 </div>
 
                 <div className="sample-id-container">
