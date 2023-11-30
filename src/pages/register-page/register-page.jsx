@@ -115,7 +115,7 @@ function RegisterPage() {
 
                     <button type='button' className='signup-button google' onClick={googleSignInHandler}>
                         <div className="button-icon">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png" alt="logo" />
+                            <img src="https://firebasestorage.googleapis.com/v0/b/telechat-ac31a.appspot.com/o/google-logo-icon-png-transparent.png?alt=media&token=d7deb607-f510-4e0d-9a32-20561ff6f04e" alt="logo" />
                         </div>
                         <p>Sign up with Google</p>
                     </button>
